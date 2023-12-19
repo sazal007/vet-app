@@ -4,11 +4,16 @@ const User = require('../models/userModel/user');
 const { generateToken } = require('../config/generateToken');
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password, pic, } = req.body;
+  let { role } = req.body
+
   if (!name || !email || !password) {
     res.status(400);
     throw new Error('Please enter all fields');
   }
+
+  if(!role) role = {role:'user'}
+
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
@@ -38,6 +43,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+  
   const user = await User.findOne({ email });
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
