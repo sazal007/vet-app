@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const Chat = require("../models/chatModel/chat");
-const User = require("../models/userModel/user");
+const Chat = require("../../models/chatModel/chat");
+const User = require("../../models/userModel/user");
 
 const accessChat = asyncHandler(async (req, res) => {
   const { userId } = req.body;
