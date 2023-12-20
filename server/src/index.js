@@ -8,6 +8,7 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoute');
 const chatRoutes = require('./routes/chatRoute');
 const messageRoutes = require('./routes/msgRoute');
+const categoryRoutes = require('./routes/categoryRoute')
 
 const app = express();
 dbConnection();
@@ -26,6 +27,7 @@ app.use(cors(corsOptions));
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/message', messageRoutes);
+app.use('/api/category', categoryRoutes);
 
 // MIDDLEWARE 
 app.use(notFound);
