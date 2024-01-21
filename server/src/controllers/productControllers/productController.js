@@ -11,7 +11,8 @@ const getProducts = asyncHandler(async (req, res) => {
 });
 
 const addProducts = asyncHandler(async (req, res) => {
-  const { product_name, description, price, image, category } = req.body;
+  const { product_name, description, price, category } = req.body;
+  const image  = req.file.path;
 
   if (!product_name || !description || !price) {
     res.status(400);
@@ -43,7 +44,8 @@ const addProducts = asyncHandler(async (req, res) => {
 });
 
 const updateProduct = asyncHandler(async (req, res) => {
-  const { product_name, description, price, image, category } = req.body;
+  const { product_name, description, price, category } = req.body;
+  const image = req.file.path;
 
   let updateProduct = await Product.findByIdAndUpdate(req.params.id, {
     product_name,
