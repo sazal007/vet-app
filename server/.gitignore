@@ -3,3 +3,4 @@ node_modules
 .github
 !.github/workflows
 .DS_Store
+public
