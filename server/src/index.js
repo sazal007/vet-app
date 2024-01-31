@@ -10,6 +10,7 @@ const chatRoutes = require('./routes/chatRoute');
 const messageRoutes = require('./routes/msgRoute');
 const categoryRoutes = require('./routes/categoryRoute');
 const productRoutes = require('./routes/productRoute');
+const doctorRoutes = require('./routes/doctorRoute');
 
 const app = express();
 dbConnection();
@@ -30,6 +31,7 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/message', messageRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/doctor', doctorRoutes);
 
 // MIDDLEWARE 
 app.use(notFound);

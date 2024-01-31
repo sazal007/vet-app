@@ -25,7 +25,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'user',
     required: true
-  }
+  },
+  isDoctor: {
+    type: Boolean,
+    default: false,
+  },
+  notifcation: {
+    type: Array,
+    default: [],
+  },
+  seennotification: {
+    type: Array,
+    default: [],
+  },
 }, { timestamps: true })
 
 const User = mongoose.model('User', userSchema);
