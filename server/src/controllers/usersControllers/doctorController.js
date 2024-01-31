@@ -15,7 +15,11 @@ const registerDoctor = asyncHandler(async (req, res) => {
   const newDoctor = await Doctor.create({
     ...req.body, status: "pending"
   });
-  res.status(200).json(newDoctor);
+  res.status(200).json({
+    success: true,
+    message: "Doctor Account Applied Successfully",
+    data: newDoctor
+  });
 
   const adminUser = await User.findOne({ role: "admin" });
   const notifcation = adminUser.notifcation;

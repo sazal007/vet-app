@@ -70,8 +70,38 @@ const allUsers = asyncHandler(async (req, res) => {
   res.send(users);
 });
 
+const getAllNotificaton = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ _id: req.body.userId });
+  const seennotification = user.seennotification;
+  const notification = user.notification;
+  seennotification.push(...notification);
+  user.notification = [];
+  user.seennotification = notification;
+  const updatedUser = await user.save();
+  res.status(200).send({
+    success: true,
+    message: "all notification marked as read",
+    data: updatedUser,
+  });
+});
+
+const deleteNotification = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ _id: req.body.userId });
+  user.notification = [];
+  user.seennotification = [];
+  const updatedUser = await user.save();
+  updatedUser.password = undefined;
+  res.status(200).send({
+    success: true,
+    message: "all notification deleted",
+    data: updatedUser,
+  });
+});
+
 module.exports = {
   registerUser,
   authUser,
-  allUsers
+  allUsers,
+  getAllNotificaton,
+  deleteNotification,
 }
