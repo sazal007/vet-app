@@ -11,6 +11,15 @@ const getDoctor = asyncHandler(async (req, res) => {
   res.status(200).json(doctor);
 });
 
+const getAllDoctors = asyncHandler(async (req, res) => {
+  const doctors = await Doctor.find();
+  if (!doctors) {
+    res.status(400);
+    throw new Error('Doctors not found');
+  }
+  res.status(200).json(doctors);
+});
+
 const registerDoctor = asyncHandler(async (req, res) => {
   const newDoctor = await Doctor.create({
     ...req.body, status: "pending"
@@ -43,5 +52,6 @@ const registerDoctor = asyncHandler(async (req, res) => {
 
 module.exports = {
   getDoctor,
+  getAllDoctors,
   registerDoctor
 }
