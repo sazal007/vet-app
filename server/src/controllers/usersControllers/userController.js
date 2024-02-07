@@ -154,6 +154,14 @@ const checkAvailability = asyncHandler(async (req, res) => {
   }
 });
 
+const getAppointments = asyncHandler(async (req, res) => {
+  const appointments = await Appointment.find({ userId: req.body.userId });
+  res.status(200).send({
+    success: true,
+    data: appointments,
+  });
+});
+
 module.exports = {
   registerUser,
   authUser,
@@ -162,4 +170,5 @@ module.exports = {
   deleteNotification,
   bookAppointment,
   checkAvailability,
+  getAppointments,
 };
