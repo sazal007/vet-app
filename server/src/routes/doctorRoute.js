@@ -9,6 +9,7 @@ const {
   changeStatus,
   getApprovedDoctor,
   doctorAppointments,
+  acceptAppointment,
 } = require("../controllers/usersControllers/doctorController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -20,5 +21,6 @@ router.put("/update-doctor/:id", updateDoctor);
 router.get("/approved-doctors", getApprovedDoctor);
 router.post("/change-status", changeStatus);
 router.get("/get-doc-appoitments", doctorAppointments);
+router.post("/accept-appointment", acceptAppointment);
 
 module.exports = router;

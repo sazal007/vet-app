@@ -115,6 +115,8 @@ const doctorAppointments = asyncHandler(async (req, res) => {
   });
 });
 
+const acceptAppointment = asyncHandler(async (req, res) => {});
+
 module.exports = {
   getAllDoctors,
   registerDoctor,
@@ -124,4 +126,5 @@ module.exports = {
   getApprovedDoctor,
   changeStatus,
   doctorAppointments,
+  acceptAppointment,
 };
