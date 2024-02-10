@@ -8,6 +8,7 @@ const {
   getDoctorDetails,
   changeStatus,
   getApprovedDoctor,
+  doctorAppointments,
 } = require("../controllers/usersControllers/doctorController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -18,5 +19,6 @@ router.delete("/delete-doctor/:id", deleteDoctor);
 router.put("/update-doctor/:id", updateDoctor);
 router.get("/approved-doctors", getApprovedDoctor);
 router.post("/change-status", changeStatus);
+router.get("/get-doc-appoitments", doctorAppointments);
 
 module.exports = router;

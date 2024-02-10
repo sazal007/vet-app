@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Doctor = require("../../models/userModel/doctor");
 const User = require("../../models/userModel/user");
+const Appointment = require("../../models/userModel/appointment");
 
 const getAllDoctors = asyncHandler(async (req, res) => {
   const doctors = await Doctor.find();
@@ -85,8 +86,8 @@ const getApprovedDoctor = asyncHandler(async (req, res) => {
 
 const changeStatus = asyncHandler(async (req, res) => {
   const { doctorId, status } = req.body;
-  const doctor = await doctorModel.findByIdAndUpdate(doctorId, { status });
-  const user = await userModel.findOne({ _id: doctor.userId });
+  const doctor = await Doctor.findByIdAndUpdate(doctorId, { status });
+  const user = await User.findOne({ _id: doctor.userId });
   const notification = user.notification;
   notification.push({
     type: "doctor-account-request-updated",
@@ -102,6 +103,18 @@ const changeStatus = asyncHandler(async (req, res) => {
   });
 });
 
+const doctorAppointments = asyncHandler(async (req, res) => {
+  const doctor = await Doctor.findOne({ userId: req.body.userId });
+  const appointments = await Appointment.find({
+    doctorId: doctor._id,
+  });
+  res.status(200).send({
+    success: true,
+    message: "Doctor Appointments fetch Successfully",
+    data: appointments,
+  });
+});
+
 module.exports = {
   getAllDoctors,
   registerDoctor,
@@ -110,4 +123,5 @@ module.exports = {
   getDoctorDetails,
   getApprovedDoctor,
   changeStatus,
+  doctorAppointments,
 };
