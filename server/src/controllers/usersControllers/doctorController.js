@@ -115,7 +115,26 @@ const doctorAppointments = asyncHandler(async (req, res) => {
   });
 });
 
-const acceptAppointment = asyncHandler(async (req, res) => {});
+const acceptAppointment = asyncHandler(async (req, res) => {
+  const { appointmentsId, status } = req.body;
+  const appointment = await Appointment.findByIdAndUpdate(appointmentsId, {
+    status,
+  });
+
+  const user = await User.findOne({ _id: appointment.userId });
+  const notification = user.notification;
+  notification.push({
+    type: "status-updated",
+    message: `your appointment has been updated ${status}`,
+    onClickPath: "/doctor-appointments",
+  });
+  await user.save();
+  res.status(200).send({
+    success: true,
+    message: "Appointment Status Updated",
+    data: appointment,
+  });
+});
 
 module.exports = {
   getAllDoctors,
