@@ -8,6 +8,7 @@ const {
   deleteNotification,
   checkAvailability,
   getAppointments,
+  bookAppointment,
 } = require("../controllers/usersControllers/userController");
 const { protect } = require("../middleware/authMiddleware");
 
