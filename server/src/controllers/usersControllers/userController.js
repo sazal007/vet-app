@@ -5,7 +5,8 @@ const Appointment = require("../../models/userModel/appointment");
 const { generateToken } = require("../../config/generateToken");
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password } = req.body;
+  const pic = req.file.path;
   let { role } = req.body;
 
   if (!name || !email || !password) {

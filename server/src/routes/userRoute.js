@@ -11,8 +11,9 @@ const {
   bookAppointment,
 } = require("../controllers/usersControllers/userController");
 const { protect } = require("../middleware/authMiddleware");
+const upload = require("../config/fileUpload");
 
-router.post("/register", registerUser);
+router.post("/register", upload.single("pic"), registerUser);
 router.post("/login", authUser);
 router.get("/", protect, allUsers);
 router.post("/get-notification", protect, getAllNotificaton);

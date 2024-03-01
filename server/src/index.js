@@ -1,23 +1,23 @@
-const express = require('express');
-require('dotenv').config();
-const cors = require('cors');
+const express = require("express");
+require("dotenv").config();
+const cors = require("cors");
 const port = process.env.PORT;
-const dbConnection = require('./config/dbConnection');
-const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+const dbConnection = require("./config/dbConnection");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
-const userRoutes = require('./routes/userRoute');
-const chatRoutes = require('./routes/chatRoute');
-const messageRoutes = require('./routes/msgRoute');
-const categoryRoutes = require('./routes/categoryRoute');
-const productRoutes = require('./routes/productRoute');
-const doctorRoutes = require('./routes/doctorRoute');
+const userRoutes = require("./routes/userRoute");
+const chatRoutes = require("./routes/chatRoute");
+const messageRoutes = require("./routes/msgRoute");
+const categoryRoutes = require("./routes/categoryRoute");
+const productRoutes = require("./routes/productRoute");
+const doctorRoutes = require("./routes/doctorRoute");
 
 const app = express();
 dbConnection();
 
 const corsOptions = {
-  origin: '*',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };
@@ -26,14 +26,15 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 // ROUTEING
-app.use('/api/user', userRoutes);
-app.use('/api/chat', chatRoutes);
-app.use('/api/message', messageRoutes);
-app.use('/api/category', categoryRoutes);
-app.use('/api/product', productRoutes);
-app.use('/api/doctor', doctorRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
+app.use("/api/category", categoryRoutes);
+app.use("/api/product", productRoutes);
+app.use("/api/doctor", doctorRoutes);
+app.use("/public/uploads", express.static("public/uploads"));
 
-// MIDDLEWARE 
+// MIDDLEWARE
 app.use(notFound);
 app.use(errorHandler);
 
