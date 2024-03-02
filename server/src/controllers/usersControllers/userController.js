@@ -6,7 +6,13 @@ const { generateToken } = require("../../config/generateToken");
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-  const pic = req.file.path;
+  let pic;
+  if (req.file) {
+    pic = req.file.path;
+  } else {
+    pic =
+      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+  }
   let { role } = req.body;
 
   if (!name || !email || !password) {
