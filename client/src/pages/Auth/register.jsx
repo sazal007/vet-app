@@ -82,21 +82,21 @@ const Register = () => {
               <label htmlFor="email" className="label">
                 <span className="label-text text-gray-600">Email</span>
               </label>
-              <input type="email" id="email" name="email" placeholder="Email" className="input input-bordered w-full" autoComplete="off" value={email} onChange={handleChange("email")} />
+              <input type="email" id="email" name="email" placeholder="Email" className="input input-bordered w-full" autoComplete="off" value={email} onChange={handleChange("email")} required />
             </div>
             {/* <!-- Password Input --> */}
             <div className="form-control w-full mb-4">
               <label htmlFor="password" className="label">
                 <span className="label-text text-gray-600">Password</span>
               </label>
-              <input type="password" id="password" name="password" placeholder="Password" className="input input-bordered w-full" autoComplete="off" value={password} onChange={handleChange("password")} />
+              <input type="password" id="password" name="password" placeholder="Password" className="input input-bordered w-full" autoComplete="off" value={password} onChange={handleChange("password")} required />
             </div>
             {/* <!-- Image Input --> */}
             <label className="form-control w-full mb-4">
               <div className="label">
                 <span className="label-text text-gray-600">Upload your picture</span>
               </div>
-              <input type="file" className="file-input file-input-bordered w-full max-w-xs" accept="image/*" onChange={handleChange("pic")} ref={file_ref} required />
+              <input type="file" className="file-input file-input-bordered w-full max-w-xs" accept="image/*" onChange={handleChange("pic")} ref={file_ref} />
             </label>
             {/* <!-- Sign Up Button --> */}
             <button type="submit" className="btn btn-primary text-lg font-semibold rounded-md py-2 px-4 w-full" onClick={handleSubmit}>Sign Up</button>
