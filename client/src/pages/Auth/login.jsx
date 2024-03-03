@@ -17,7 +17,7 @@ const Login = () => {
       console.log('Login successful', data);
       // Redirect the user according to their role
       if (isLoggedIn().role == 'admin') {
-        navigate('/admin');
+        navigate('/admin/dashboard');
       } else if (isLoggedIn().role == 'doctor') {
         navigate('/doctor');
       } else {
