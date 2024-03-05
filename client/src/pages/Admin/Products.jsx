@@ -57,7 +57,7 @@ const Products = () => {
           <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
             <div className="flex justify-end"><AddProduct headingText="Add Product" button1Text="Add Product" button2Text="Add" /></div>
             <div className="overflow-x-auto">
-              <table className="table">
+              <table className="table table-pin-cols table-pin-rows">
                 {/* Table head */}
                 <thead>
                   <tr>
@@ -79,7 +79,7 @@ const Products = () => {
                         <td>{product.product_name}</td>
                         <td>{product.price}</td>
                         <td><img src={`${import.meta.env.VITE_BACKEND_IMAGE_URL}/${product.image}`} width={130} alt={product.product_name} onError={e => e.target.src = "/no_image_found.png"} /></td>
-                        <td>{product.category}</td>
+                        <td>{product.category.category_name}</td>
                         <td>{product.description}</td>
                         <td className="flex gap-1">
                           <AddProduct headingText="Update Product" button1Text="Edit" button2Text="Update" />

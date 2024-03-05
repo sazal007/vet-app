@@ -2,10 +2,10 @@ const asyncHandler = require("express-async-handler");
 const Product = require("../../models/productModel/products");
 
 const getProducts = asyncHandler(async (req, res) => {
-  let product = await Product.find();
+  let product = await Product.find().populate("category");
   if (product.length === 0) {
-    res.status(400);
-    throw new Error("No products found");
+    res.status(404).json({ message: "No products found" });
+    return;
   }
   return res.status(200).send(product);
 });
@@ -13,7 +13,7 @@ const getProducts = asyncHandler(async (req, res) => {
 const searchProducts = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
-        product_name: { $regex: req.query.search, $options: 'i' },
+        product_name: { $regex: req.query.search, $options: "i" },
       }
     : {};
   const productId = req.params.id;
