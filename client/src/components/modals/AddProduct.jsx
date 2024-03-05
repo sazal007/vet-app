@@ -57,7 +57,7 @@ const AddProduct = ({ headingText, button1Text, button2Text }) => {
                 <span className="label-text">Select Category</span>
               </div>
               <select className="select select-bordered">
-                <option disabled selected>Categories</option>
+                <option disabled defaultValue={'Categories'}>Categories</option>
                 <option>Star Wars</option>
                 <option>Harry Potter</option>
                 <option>Lord of the Rings</option>
