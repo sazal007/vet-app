@@ -2,30 +2,46 @@ import { useEffect, useState } from "react";
 import AdminLayout from "../../components/adminLayout"
 import AddCategory from "../../components/modals/AddCategory"
 import AddProduct from "../../components/modals/AddProduct"
-import { getCategories, getProducts } from "../../apis/e-commerce/productsApi";
+import { deleteCategory, getCategories, getProducts } from "../../apis/e-commerce/productsApi";
 
 const Products = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    fetchCategories();
+    fetchProducts();
+  }, []);
+
+  const fetchCategories = () => {
     getCategories()
       .then(data => setCategories(data))
       .catch(err => console.log(err));
+  };
 
+  const fetchProducts = () => {
     getProducts()
       .then(data => setProducts(data))
       .catch(err => console.log(err));
-  }, []);
+  };
+
+  const handleDeleteCategory = (id) => {
+    deleteCategory(id)
+      .then(() => {
+        fetchCategories(); // Refresh categories after deletion
+      })
+      .catch(err => console.log(err));
+  };
 
   return (
     <>
       <AdminLayout>
         <h1 className="mb-5 p-5 text-xl">Products</h1>
         <div role="tablist" className="tabs tabs-lifted">
+          {/* Tab 1 for categories */}
           <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Catetories" defaultChecked />
           <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <div className="flex justify-end"><AddCategory headingText="Add Category" button1Text="Add Category" button2Text="Add" /></div>
+            <div className="flex justify-end"><AddCategory headingText="Add Category" button1Text="Add Category" button2Text="Add" refreshCategories={fetchCategories} /></div>
             <div className="overflow-x-auto">
               <table className="table w-full">
                 {/* Table head */}
@@ -43,8 +59,10 @@ const Products = () => {
                       <th>{index + 1}</th>
                       <td>{category.category_name}</td>
                       <td className="flex gap-1">
-                        <AddCategory headingText="Update Category" button1Text="Edit" button2Text="Update" />
-                        <button className="btn btn-error">Delete</button>
+                        <AddCategory headingText="Update Category" button1Text="Edit" button2Text="Update" isEditMode={true}
+                          initialCategoryName={category.category_name}
+                          categoryId={category._id} refreshCategories={fetchCategories} />
+                        <button className="btn btn-error" onClick={() => handleDeleteCategory(category._id)}>Delete</button>
                       </td>
                     </tr>
                   ))}
@@ -52,7 +70,7 @@ const Products = () => {
               </table>
             </div>
           </div>
-
+          {/* Tab 2 for products */}
           <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Products" />
           <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
             <div className="flex justify-end"><AddProduct headingText="Add Product" button1Text="Add Product" button2Text="Add" /></div>
