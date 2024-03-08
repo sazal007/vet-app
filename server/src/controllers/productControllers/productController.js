@@ -68,26 +68,36 @@ const addProducts = asyncHandler(async (req, res) => {
 const updateProduct = asyncHandler(async (req, res) => {
   const { product_name, description, price, category } = req.body;
 
-  if (req.file) {
-    image = req.file.path;
-  } else {
-    image = "no image uploaded";
-  }
+  // Find the product by ID
+  let product = await Product.findById(req.params.id);
 
-  let updateProduct = await Product.findByIdAndUpdate(req.params.id, {
-    product_name,
-    description,
-    price,
-    image,
-    category,
-  });
-
-  if (!updateProduct) {
-    res.status(400);
+  if (!product) {
+    res.status(404);
     throw new Error("Product not found");
   }
 
-  res.status(200).json(updateProduct);
+  // Conditionally set the image if a new file is uploaded
+  const updatedFields = {
+    product_name,
+    description,
+    price,
+  };
+
+  if (category) {
+    updatedFields.category = category;
+  }
+
+  if (req.file) {
+    updatedFields.image = req.file.path; // Only update the image if a new file is uploaded
+  }
+
+  // Update the product with the new values, including the image if it was provided
+  const updatedProduct = await Product.findByIdAndUpdate(
+    req.params.id,
+    updatedFields,
+    { new: true }
+  );
+  res.status(200).json(updatedProduct);
 });
 
 const deleteProduct = asyncHandler(async (req, res) => {

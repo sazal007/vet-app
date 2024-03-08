@@ -15,7 +15,7 @@ router.post("/add-product", upload.single("image"), addProducts);
 router.get("/get-products", getProducts);
 router.get("/get-product/:id", getSingleProduct);
 router.get("/search-product", searchProducts);
-router.put("/update-product/:id", updateProduct);
+router.put("/update-product/:id", upload.single("image"), updateProduct);
 router.delete("/delete-product/:id", deleteProduct);
 
 module.exports = router;
