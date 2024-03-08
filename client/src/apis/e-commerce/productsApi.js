@@ -85,3 +85,55 @@ export const getProducts = async () => {
     console.log(err);
   }
 };
+
+// Function to add product
+export const addProduct = async (formData) => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/product/add-product`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateProduct = async (id, formData) => {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/product/update-product/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Function to delete product
+export const deleteProduct = async (id) => {
+  try {
+    const response = await axios.delete(
+      `${import.meta.env.VITE_BACKEND_URL}/product/delete-product/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
