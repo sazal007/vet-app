@@ -31,7 +31,11 @@ const getSingleProduct = asyncHandler(async (req, res) => {
 
 const addProducts = asyncHandler(async (req, res) => {
   const { product_name, description, price, category } = req.body;
-  const image = req.file.path;
+  if (req.file) {
+    image = req.file.path;
+  } else {
+    image = "no image uploaded";
+  }
 
   if (!product_name || !description || !price) {
     res.status(400);
@@ -63,7 +67,12 @@ const addProducts = asyncHandler(async (req, res) => {
 
 const updateProduct = asyncHandler(async (req, res) => {
   const { product_name, description, price, category } = req.body;
-  const image = req.file.path;
+
+  if (req.file) {
+    image = req.file.path;
+  } else {
+    image = "no image uploaded";
+  }
 
   let updateProduct = await Product.findByIdAndUpdate(req.params.id, {
     product_name,
