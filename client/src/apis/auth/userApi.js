@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Function to register user
 export const registerUser = async (userData) => {
   try {
     const response = await axios.post(
@@ -55,4 +56,21 @@ export const isLoggedIn = () => {
 // Function to logout user
 export const logoutUser = () => {
   localStorage.removeItem("userInfo");
+};
+
+// Function to get all users
+export const getUsers = async () => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/user/get-all-user`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
