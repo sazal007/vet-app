@@ -81,6 +81,15 @@ const allUsers = asyncHandler(async (req, res) => {
   res.send(users);
 });
 
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find();
+  if (users.length === 0) {
+    res.status(404).json({ message: "No users found" });
+    return;
+  }
+  return res.status(200).send(users);
+});
+
 const getAllNotificaton = asyncHandler(async (req, res) => {
   const user = await User.findOne({ _id: req.body.userId });
   const seennotification = user.seennotification;
@@ -179,4 +188,5 @@ module.exports = {
   bookAppointment,
   checkAvailability,
   getAppointments,
+  getAllUsers,
 };
