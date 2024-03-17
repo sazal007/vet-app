@@ -47,7 +47,7 @@ const AdminLayout = ({ children }) => {
               {
                 key: '/admin/doctors-list',
                 icon: <UploadOutlined />,
-                label: 'Doctors',
+                label: 'Doctors Requests',
               },
               {
                 key: '/admin/orders',
