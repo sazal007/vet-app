@@ -8,6 +8,7 @@ import AdminDashboard from '../pages/Admin/AdminDashboard'
 import Products from '../pages/Admin/Products'
 import DoctorsList from '../pages/Admin/DoctorsList'
 import UsersList from '../pages/Admin/UsersList'
+import ChatsPage from '../pages/main/chatsPage'
 
 const MyRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const MyRoutes = () => {
             <Route path="/admin/products" element={<Products />} />
             <Route path="/admin/doctors-list" element={<DoctorsList />} />
             <Route path="/admin/users" element={<UsersList />} />
+            <Route path="/messages" element={<ChatsPage />} />
             <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
           </Routes>
         </ChatProvider>
