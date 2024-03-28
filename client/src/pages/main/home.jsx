@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom"
+import SideBar from "../../components/SideBar"
 
 const Home = () => {
   return (
     <>
-      <div>Home</div>
-      <Link to='/login'><button>login</button></Link>
+      <SideBar>
+        <div>Home</div>
+        <Link to='/login'><button>login</button></Link>
+      </SideBar>
     </>
   )
 }

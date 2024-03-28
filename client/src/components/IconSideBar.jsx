@@ -36,7 +36,7 @@ const IconSideBar = ({ children }) => {
 
         {/* Main content area */}
         <div className="main flex-1">
-          <div className="py-4 px-4">
+          <div className="">
             {children}
           </div>
         </div>

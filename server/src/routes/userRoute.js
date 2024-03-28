@@ -16,7 +16,7 @@ const upload = require("../config/fileUpload");
 
 router.post("/register", upload.single("pic"), registerUser);
 router.post("/login", authUser);
-router.get("/", allUsers);
+router.get("/", protect, allUsers);
 router.get("/get-all-user", getAllUsers);
 router.post("/get-notification", getAllNotificaton);
 router.post("/delete-notification", deleteNotification);
