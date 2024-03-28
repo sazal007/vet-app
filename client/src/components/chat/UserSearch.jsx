@@ -3,6 +3,8 @@ import { ChatState } from "../../context/chatProvider";
 import { RiUserAddLine } from "react-icons/ri";
 import axios from "axios";
 import UserList from "./UserList";
+import SearchLoading from "./SearchLoading";
+import { useToast } from "../../context/toastProvider";
 
 const UserSearch = () => {
   const [search, setSearch] = useState("");
@@ -18,15 +20,16 @@ const UserSearch = () => {
     chats,
     setChats,
   } = ChatState();
+  const { showToast } = useToast();
 
   const handleSearch = async () => {
     if (!search) {
-      return alert("Please enter something in search");
+      showToast("Please enter username or email.");
+      return;
     }
 
     try {
       setLoading(true);
-
       const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user?search=${search}`, {
         headers: {
           "Content-type": "application/json",
@@ -39,6 +42,8 @@ const UserSearch = () => {
 
     } catch (error) {
       console.log(error);
+      showToast("Error occurred. Please try again.", "error");
+      setLoading(false);
     }
   }
 
@@ -63,11 +68,11 @@ const UserSearch = () => {
 
   return (
     <>
-      <main className="flex gap-5 justify-center items-center">
-        <div className="w-[10rem]">
-          <p>user name</p>
+      <main className="flex gap-5 items-center">
+        <div className="pl-3 text-lg font-bold">
+          <p>k</p>
         </div>
-        <div className="drawer">
+        <div className="drawer w-0">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content tooltip tooltip-bottom" data-tip="Add users">
             {/* Page content here */}
@@ -87,7 +92,7 @@ const UserSearch = () => {
                 {/* <button className="btn btn-success" onClick={handleSearch}>search</button> */}
               </div>
 
-              {loading ? ("loading") : (
+              {loading ? (<SearchLoading />) : (
                 searchResult?.map((user) => (
                   <UserList key={user._id} user={user}
                     handleFunction={() => accessChat(user._id)}

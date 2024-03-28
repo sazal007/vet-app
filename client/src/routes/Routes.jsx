@@ -9,23 +9,26 @@ import Products from '../pages/Admin/Products'
 import DoctorsList from '../pages/Admin/DoctorsList'
 import UsersList from '../pages/Admin/UsersList'
 import ChatsPage from '../pages/main/chatsPage'
+import { ToastProvider } from '../context/toastProvider'
 
 const MyRoutes = () => {
   return (
     <>
       <BrowserRouter>
         <ChatProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/sign-up" element={<Register />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/products" element={<Products />} />
-            <Route path="/admin/doctors-list" element={<DoctorsList />} />
-            <Route path="/admin/users" element={<UsersList />} />
-            <Route path="/messages" element={<ChatsPage />} />
-            <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
-          </Routes>
+          <ToastProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/sign-up" element={<Register />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/products" element={<Products />} />
+              <Route path="/admin/doctors-list" element={<DoctorsList />} />
+              <Route path="/admin/users" element={<UsersList />} />
+              <Route path="/messages" element={<ChatsPage />} />
+              <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
+            </Routes>
+          </ToastProvider>
         </ChatProvider>
       </BrowserRouter>
     </>
