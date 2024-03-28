@@ -15,8 +15,8 @@ const UserSearch = () => {
   const {
     setSelectedChat,
     user,
-    notification,
-    setNotification,
+    // notification,
+    // setNotification,
     chats,
     setChats,
   } = ChatState();
@@ -45,32 +45,32 @@ const UserSearch = () => {
       showToast("Error occurred. Please try again.", "error");
       setLoading(false);
     }
-  }
+  };
 
   const accessChat = async (userId) => {
     try {
       setLoadingChat(true);
-      const config = {
+      const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/chat`, { userId }, {
         headers: {
           "Content-type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
-      }
-      const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/chat`, { userId }, config);
+      });
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
       setLoadingChat(false);
     } catch (error) {
       console.log(error);
+      showToast(`${error.message}`, "error");
       setLoadingChat(false);
     }
-  }
+  };
 
   return (
     <>
       <main className="flex gap-5 items-center">
         <div className="pl-3 text-lg font-bold">
-          <p>k</p>
+          {/* <p>{user.name}</p> */}
         </div>
         <div className="drawer w-0">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -99,7 +99,7 @@ const UserSearch = () => {
                   />
                 ))
               )}
-              {loadingChat}
+              {loadingChat && <div className="flex justify-end"><span className="loading loading-spinner loading-md"></span></div>}
             </div>
           </div>
         </div>
