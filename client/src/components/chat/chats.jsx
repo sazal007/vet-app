@@ -41,7 +41,7 @@ const Chats = ({ fetchAgain }) => {
 
   return (
     <>
-      <main className="h-[100vh] w-[22rem] p-3 bg-base-200 border-r-2 border-r-black/10">
+      <main className="h-[100vh] w-[22rem] p-3  bg-base-200 border-r-2 border-r-black/10">
         <UserSearch />
         <section>
           <div className="mx-2 my-4 flex items-center justify-between">
@@ -67,11 +67,6 @@ const Chats = ({ fetchAgain }) => {
                 <SearchLoading />
               )
             }
-            {/* <hr className="border-black/30" />
-            <div className="mx-2 my-4">
-              <p>sf</p>
-            </div>
-            <hr className="border-black/30" /> */}
           </div>
         </section>
       </main>

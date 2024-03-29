@@ -22,8 +22,9 @@ const UserSearch = () => {
   } = ChatState();
   const { showToast } = useToast();
 
-  const handleSearch = async () => {
-    if (!search) {
+  const handleSearch = async (query) => {
+    setSearch(query);
+    if (!query) {
       showToast("Please enter username or email.");
       return;
     }
@@ -36,7 +37,7 @@ const UserSearch = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      console.log(data);
+      // console.log(data);
       setLoading(false);
       setSearchResult(data);
 
@@ -74,7 +75,7 @@ const UserSearch = () => {
         </div>
         <div className="drawer w-0">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content tooltip tooltip-bottom" data-tip="Add users">
+          <div className="drawer-content tooltip tooltip-bottom" data-tip="Search users">
             {/* Page content here */}
             <label htmlFor="my-drawer" className="btn btn-primary drawer-button"><RiUserAddLine className="text-lg" /></label>
           </div>
@@ -84,8 +85,8 @@ const UserSearch = () => {
               <h1 className="p-3 font-bold bg-base-100 border-4 border-base-300 rounded-md">Search Users</h1>
               <div className="mt-3">
                 <label className="input input-bordered flex items-center gap-2">
-                  <input type="text" className="grow" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
-                  <button onClick={handleSearch}>
+                  <input type="text" className="grow" placeholder="Search" onChange={(e) => handleSearch(e.target.value)} />
+                  <button>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
                   </button>
                 </label>

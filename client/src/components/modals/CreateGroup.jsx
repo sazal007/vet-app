@@ -27,7 +27,7 @@ const CreateGroup = () => {
   const handleSearch = async (query) => {
     setSearch(query);
     if (!query) {
-      showToast("Please enter group name");
+      showToast("Please enter user name");
       return;
     }
     try {
