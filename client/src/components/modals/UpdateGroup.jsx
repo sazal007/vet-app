@@ -8,7 +8,7 @@ import UserList from "../chat/UserList";
 
 
 // eslint-disable-next-line react/prop-types
-const UpdateGroup = ({ fetchAgain, setFetchAgain }) => {
+const UpdateGroup = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const [groupChatName, setGroupChatName] = useState();
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -41,7 +41,7 @@ const UpdateGroup = ({ fetchAgain, setFetchAgain }) => {
 
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain);
-      // fetchMessages();
+      fetchMessages();
       setLoading(false);
     } catch (error) {
       showToast(error.response.data.message, "error");
