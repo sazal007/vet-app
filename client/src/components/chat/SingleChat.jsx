@@ -132,11 +132,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               {messages &&
                 (!selectedChat.isGroupChat ? (
                   <>
-                    <h2>{getSender(user, selectedChat.users)}</h2>
+                    <h2 className='cursor-pointer' onClick={() => setSelectedChat("")}>{getSender(user, selectedChat.users)}</h2>
                   </>
                 ) : (
                   <>
-                    <h2>{selectedChat.chatName.toUpperCase()}</h2>
+                    <h2 className='cursor-pointer' onClick={() => setSelectedChat("")}>{selectedChat.chatName.toUpperCase()}</h2>
                     <UpdateGroup
                       fetchMessages={fetchMessages}
                       fetchAgain={fetchAgain}
@@ -145,7 +145,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   </>
                 ))}
             </div>
-            <div className='w-full mt-3 h-screen flex flex-col justify-end rounded-md bg-base-100 overflow-y-hidden overflow-x-none'>
+            <div className='w-full mt-3 h-screen flex flex-col justify-end rounded-md bg-base-100 overflow-y-hidden'>
               {
                 loading ? (<span className="loading loading-spinner loading-lg m-auto"></span>) : (
                   <>

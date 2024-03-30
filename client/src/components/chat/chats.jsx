@@ -58,6 +58,13 @@ const Chats = ({ fetchAgain }) => {
                         <p className={`mx-3 py-2`}>
                           {!chat.isGroupChat ? getSender(loggedUser, chat.users) : chat.chatName}
                         </p>
+                        {/* Display latest message text */}
+                        {chat.latestMessage && (
+                          <p className="text-sm text-gray-600">
+                            {chat.latestMessage.sender._id === loggedUser._id ? 'You: ' : ''}
+                            {chat.latestMessage.text}
+                          </p>
+                        )}
                         <hr className="mb-2 border-black/10" />
                       </div>
                     ))
