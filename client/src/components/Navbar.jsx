@@ -1,6 +1,7 @@
 import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
 import { ChatState } from "../context/chatProvider";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const { user } = ChatState();
   return (
@@ -12,7 +13,7 @@ const Navbar = () => {
           </a> */}
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <div className="flex items-center justify-center gap-5">
-              {user && <p className="tooltip tooltip-bottom" data-tip="Cart"><FiShoppingCart className="text-2xl" /></p>}
+              {user && <Link to="/cart"><p className="tooltip tooltip-bottom" data-tip="Cart"><FiShoppingCart className="text-2xl" /></p></Link>}
               {user && <p className="tooltip tooltip-bottom" data-tip="Profile"><CgProfile className="text-2xl" /></p>}
             </div>
           </div>

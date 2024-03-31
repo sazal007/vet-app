@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../../apis/e-commerce/productsApi";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/cartProvider";
 
 const ProductCard = () => {
   const [products, setProducts] = useState([]);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     fetchProducts();
@@ -42,7 +44,7 @@ const ProductCard = () => {
                 </div>
                 <div className="card-actions justify-end mt-3">
                   <Link to={`/shop/${product._id}`}><button className="btn btn-secondary">View</button></Link>
-                  <button className="btn btn-accent">Add to cart</button>
+                  <button className="btn btn-accent" onClick={() => addToCart(product)}>Add to cart</button>
                 </div>
               </div>
             </div>

@@ -12,6 +12,8 @@ import ChatsPage from '../pages/main/chatsPage'
 import { ToastProvider } from '../context/toastProvider'
 import UserProducts from '../pages/main/userProducts'
 import ProductDetails from '../components/products/ProductDetails'
+import Cart from '../pages/main/Cart'
+import { CartProvider } from '../context/cartProvider'
 
 const MyRoutes = () => {
   return (
@@ -19,19 +21,22 @@ const MyRoutes = () => {
       <BrowserRouter>
         <ChatProvider>
           <ToastProvider>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/sign-up" element={<Register />} />
-              <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              <Route path="/admin/products" element={<Products />} />
-              <Route path="/admin/doctors-list" element={<DoctorsList />} />
-              <Route path="/admin/users" element={<UsersList />} />
-              <Route path="/messages" element={<ChatsPage />} />
-              <Route path="/shop" element={<UserProducts />} />
-              <Route path="/shop/:id" element={<ProductDetails />} />
-              <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
-            </Routes>
+            <CartProvider>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/sign-up" element={<Register />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/admin/products" element={<Products />} />
+                <Route path="/admin/doctors-list" element={<DoctorsList />} />
+                <Route path="/admin/users" element={<UsersList />} />
+                <Route path="/messages" element={<ChatsPage />} />
+                <Route path="/shop" element={<UserProducts />} />
+                <Route path="/shop/:id" element={<ProductDetails />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
+              </Routes>
+            </CartProvider>
           </ToastProvider>
         </ChatProvider>
       </BrowserRouter>
