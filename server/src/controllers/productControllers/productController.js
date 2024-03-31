@@ -22,7 +22,7 @@ const searchProducts = asyncHandler(async (req, res) => {
 });
 
 const getSingleProduct = asyncHandler(async (req, res) => {
-  let product = await Product.findById(req.params.id);
+  let product = await Product.findById(req.params.id).populate("category");
   if (!product) {
     return res.status(400).json({ err: "Something went wrong" });
   }

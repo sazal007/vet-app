@@ -10,6 +10,8 @@ import DoctorsList from '../pages/Admin/DoctorsList'
 import UsersList from '../pages/Admin/UsersList'
 import ChatsPage from '../pages/main/chatsPage'
 import { ToastProvider } from '../context/toastProvider'
+import UserProducts from '../pages/main/userProducts'
+import ProductDetails from '../components/products/ProductDetails'
 
 const MyRoutes = () => {
   return (
@@ -26,6 +28,8 @@ const MyRoutes = () => {
               <Route path="/admin/doctors-list" element={<DoctorsList />} />
               <Route path="/admin/users" element={<UsersList />} />
               <Route path="/messages" element={<ChatsPage />} />
+              <Route path="/shop" element={<UserProducts />} />
+              <Route path="/shop/:id" element={<ProductDetails />} />
               <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
             </Routes>
           </ToastProvider>

@@ -1,18 +1,17 @@
-import { RiHome5Line } from "react-icons/ri";
-import { MdOutlineShoppingCart, MdOutlineBookmarkAdd } from "react-icons/md";
-import { FiMessageCircle, FiUser } from "react-icons/fi";
+import { FiMessageCircle, FiUser } from "react-icons/fi"
+import { MdOutlineBookmarkAdd, MdOutlineShoppingCart } from "react-icons/md"
+import { RiHome5Line } from "react-icons/ri"
 
 // eslint-disable-next-line react/prop-types
-const SideBar = ({ children }) => {
-
+const ProductSideBar = ({ children }) => {
   return (
     <>
       <div className="flex min-h-screen">
         {/* Sidebar */}
-        <div className="sidebar bg-base-200 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out border-r-2 border-r-black/10">
+        <div className="sidebar bg-base-200 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out border-r-2 border-r-black/10 border-t-2 border-t-black/10 border-b-2 border-b-black/10">
           {/* Sidebar content */}
           <div>
-            <a href="#" className="px-4 text-xl font-semibold font-mono uppercase hover:text-gray-300">Pawsitive Care</a>
+            <a href="#" className="px-4 text-xl font-semibold font-mono uppercase hover:text-gray-300">Shop</a>
           </div>
           <hr className="border-black/35" />
           <nav className="flex flex-col gap-4">
@@ -45,4 +44,4 @@ const SideBar = ({ children }) => {
   )
 }
 
-export default SideBar
+export default ProductSideBar

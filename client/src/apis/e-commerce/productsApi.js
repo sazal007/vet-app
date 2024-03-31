@@ -86,6 +86,22 @@ export const getProducts = async () => {
   }
 };
 
+export const getProductDetail = async (id) => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/product/get-product/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // Function to add product
 export const addProduct = async (formData) => {
   try {
