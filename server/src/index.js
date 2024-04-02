@@ -12,6 +12,7 @@ const categoryRoutes = require("./routes/categoryRoute");
 const productRoutes = require("./routes/productRoute");
 const doctorRoutes = require("./routes/doctorRoute");
 const petRoutes = require("./routes/petRoute");
+const postRoutes = require("./routes/postRoute");
 
 const app = express();
 dbConnection();
@@ -34,6 +35,7 @@ app.use("/api/category", categoryRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/doctor", doctorRoutes);
 app.use("/api/pet", petRoutes);
+app.use("/api/post", postRoutes);
 app.use("/public/uploads", express.static("public/uploads"));
 
 // MIDDLEWARE
