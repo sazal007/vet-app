@@ -68,8 +68,12 @@ const Profile = () => {
                   <div className="flex flex-col">
                     <span className="text-gray-700 uppercase font-bold tracking-wider mb-2">Settings</span>
                     <ul>
-                      <li className="mb-2">Edit pet profile</li>
-                      <li className="mb-2" onClick={logoutHandler}>Logout</li>
+                      {
+                        profile.map((p, i) => (
+                          <li className="mb-2" key={i}><PetProfileForm headingText="Edit Profile" button1Text="Edit pet profile" button2Text="Edit" refreshProfile={fetchProfile} petId={p._id} initialPetName={p.pet_name} initialAge={p.age} initialSpecies={p.species} initialBreed={p.breed} initialGender={p.gender} initialBirthdate={p.birthdate} initialDescription={p.description} initialImage={p.image} isEditMode={true} /></li>
+                        ))
+                      }
+                      <li className="mb-2 cursor-pointer" onClick={logoutHandler}>Logout</li>
                     </ul>
                   </div>
                 </div>
