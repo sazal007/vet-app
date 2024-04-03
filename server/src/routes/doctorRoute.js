@@ -13,14 +13,14 @@ const {
 } = require("../controllers/usersControllers/doctorController");
 const { protect } = require("../middleware/authMiddleware");
 
-router.get("/get-doctor", getDoctorDetails);
-router.get("/all-doctors", getAllDoctors);
-router.post("/register-doctor", registerDoctor);
-router.delete("/delete-doctor/:id", deleteDoctor);
-router.put("/update-doctor/:id", updateDoctor);
-router.get("/approved-doctors", getApprovedDoctor);
-router.post("/change-status", changeStatus);
-router.get("/get-doc-appoitments", doctorAppointments);
-router.post("/accept-appointment", acceptAppointment);
+router.get("/get-doctor", protect, getDoctorDetails);
+router.get("/all-doctors", protect, getAllDoctors);
+router.post("/register-doctor", protect, registerDoctor);
+router.delete("/delete-doctor/:id", protect, deleteDoctor);
+router.put("/update-doctor/:id", protect, updateDoctor);
+router.get("/approved-doctors", protect, getApprovedDoctor);
+router.post("/change-status", protect, changeStatus);
+router.get("/get-doc-appoitments", protect, doctorAppointments);
+router.post("/accept-appointment", protect, acceptAppointment);
 
 module.exports = router;
