@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getProfile } from "../../apis/petprofile/petsProfile";
 import SideBar from "../../components/SideBar";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../apis/auth/userApi";
+import PetProfileForm from "../../components/modals/PetProfileForm";
 // import { ChatState } from "../../context/chatProvider";
 
 const Profile = () => {
@@ -13,6 +14,10 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = () => {
     getProfile()
       .then((data) => {
         setProfile(data);
@@ -20,7 +25,7 @@ const Profile = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
   const logoutHandler = () => {
     logoutUser();
@@ -28,16 +33,21 @@ const Profile = () => {
   };
 
   const calculateAge = (birthdate) => {
-    const birthDate = new Date(birthdate);
     const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
+    const birthDate = new Date(birthdate);
+    let ageYears = today.getFullYear() - birthDate.getFullYear();
+    let ageMonths = today.getMonth() - birthDate.getMonth();
 
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
+    if (ageMonths < 0 || (ageMonths === 0 && today.getDate() < birthDate.getDate())) {
+      ageYears--;
+      ageMonths = 12 + ageMonths;
     }
 
-    return age;
+    if (today.getDate() < birthDate.getDate()) {
+      ageMonths--;
+    }
+
+    return `${ageYears} years and ${ageMonths} months`;
   };
 
   return (
@@ -79,7 +89,7 @@ const Profile = () => {
                       <div>
                         <p>Species: {p.species}</p>
                         <p>Breed: {p.breed}</p>
-                        <p>Age: {calculateAge(p.birthdate)} years</p>
+                        <p>Age: {calculateAge(p.birthdate)}</p>
                         <p>Gender: {p.gender}</p>
                         <p>Description: {p.description}</p>
                       </div>
@@ -89,11 +99,8 @@ const Profile = () => {
                   // No Pet Profile Found, display a message and a button to create a profile
                   <div className="bg-base-200 shadow rounded-lg p-6 text-center">
                     <h2 className="text-xl font-bold mb-4">No Pet Profile Found</h2>
-                    <p>Your pet&apos;s profile hasn&apos;t been created yet.</p>
-                    {/* Adjust the Link to use the correct path to your pet profile creation page */}
-                    <Link to="/create-pet-profile" className="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                      Create Pet Profile
-                    </Link>
+                    <p className="mb-4">Your pet&apos;s profile hasn&apos;t been created yet.</p>
+                    <PetProfileForm headingText="Create Profile" button1Text="Create Profile" button2Text="Create" refreshProfile={fetchProfile} />
                   </div>
                 )}
               </div>
