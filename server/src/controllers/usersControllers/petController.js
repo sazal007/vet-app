@@ -38,14 +38,20 @@ const createPet = asyncHandler(async (req, res) => {
 });
 
 const getPetProfile = asyncHandler(async (req, res) => {
-  const petProfile = await Pet.findById(req.params.id).populate(
+  const userId = req.user._id;
+  // Find pet profiles where the 'owner' field matches the logged-in user's ID
+  const petProfiles = await Pet.find({ owner: userId }).populate(
     "owner",
     "name email"
   );
-  if (!petProfile) {
-    res.status(400).json({ error: "Pet profile not found" });
+
+  if (petProfiles.length === 0) {
+    return res
+      .status(404)
+      .json({ message: "No pet profiles found for this user." });
   }
-  res.status(200).json(petProfile);
+
+  res.json(petProfiles);
 });
 
 const updatePetProfile = asyncHandler(async (req, res) => {

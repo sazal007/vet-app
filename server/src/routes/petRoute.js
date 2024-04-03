@@ -10,7 +10,7 @@ const {
 } = require("../controllers/usersControllers/petController");
 
 router.post("/create-profile", upload.single("image"), protect, createPet);
-router.get("/get-pet/:id", protect, getPetProfile);
+router.get("/get-pet", protect, getPetProfile);
 router.put(
   "/update-profile/:id",
   upload.single("image"),

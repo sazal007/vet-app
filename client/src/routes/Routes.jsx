@@ -14,6 +14,7 @@ import UserProducts from '../pages/main/userProducts'
 import ProductDetails from '../components/products/ProductDetails'
 import Cart from '../pages/main/Cart'
 import { CartProvider } from '../context/cartProvider'
+import Profile from '../pages/main/Profile'
 
 const MyRoutes = () => {
   return (
@@ -34,6 +35,7 @@ const MyRoutes = () => {
                 <Route path="/shop" element={<UserProducts />} />
                 <Route path="/shop/:id" element={<ProductDetails />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
               </Routes>
             </CartProvider>
