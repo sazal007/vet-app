@@ -15,6 +15,7 @@ import ProductDetails from '../components/products/ProductDetails'
 import Cart from '../pages/main/Cart'
 import { CartProvider } from '../context/cartProvider'
 import Profile from '../pages/main/Profile'
+import RegisterAsDoctor from '../pages/main/RegisterAsDoctor'
 
 const MyRoutes = () => {
   return (
@@ -36,6 +37,7 @@ const MyRoutes = () => {
                 <Route path="/shop/:id" element={<ProductDetails />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/register-as-vet" element={<RegisterAsDoctor />} />
                 <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
               </Routes>
             </CartProvider>

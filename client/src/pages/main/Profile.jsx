@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProfile } from "../../apis/petprofile/petsProfile";
 import SideBar from "../../components/SideBar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../apis/auth/userApi";
 import PetProfileForm from "../../components/modals/PetProfileForm";
 // import { ChatState } from "../../context/chatProvider";
@@ -73,6 +73,7 @@ const Profile = () => {
                           <li className="mb-2" key={i}><PetProfileForm headingText="Edit Profile" button1Text="Edit pet profile" button2Text="Edit" refreshProfile={fetchProfile} petId={p._id} initialPetName={p.pet_name} initialAge={p.age} initialSpecies={p.species} initialBreed={p.breed} initialGender={p.gender} initialBirthdate={p.birthdate} initialDescription={p.description} initialImage={p.image} isEditMode={true} /></li>
                         ))
                       }
+                      {user.isDoctor === false && <Link to="/profile/register-as-vet"><li className="mb-2 cursor-pointer">Register as vet</li></Link>}
                       <li className="mb-2 cursor-pointer" onClick={logoutHandler}>Logout</li>
                     </ul>
                   </div>
