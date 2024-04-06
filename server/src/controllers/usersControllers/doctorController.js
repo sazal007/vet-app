@@ -13,7 +13,9 @@ const getAllDoctors = asyncHandler(async (req, res) => {
 });
 
 const registerDoctor = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
   const newDoctor = await Doctor.create({
+    userId,
     ...req.body,
     status: "pending",
   });
@@ -24,7 +26,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
   });
 
   const adminUser = await User.findOne({ role: "admin" });
-  const notifcation = adminUser.notifcation;
+  const notifcation = adminUser.notification;
   notifcation.push({
     type: "apply-doctor-request",
     message: `${newDoctor.firstName} ${newDoctor.lastName} Has Applied For A Doctor Account`,
