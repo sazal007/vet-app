@@ -17,7 +17,7 @@ router.get("/get-doctor", protect, getDoctorDetails);
 router.get("/all-doctors", protect, getAllDoctors);
 router.post("/register-doctor", protect, registerDoctor);
 router.delete("/delete-doctor/:id", protect, deleteDoctor);
-router.put("/update-doctor/:id", protect, updateDoctor);
+router.post("/update-doctor", protect, updateDoctor);
 router.get("/approved-doctors", protect, getApprovedDoctor);
 router.post("/change-status", protect, changeStatus);
 router.get("/get-doc-appoitments", protect, doctorAppointments);

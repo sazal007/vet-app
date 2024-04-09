@@ -52,9 +52,13 @@ const deleteDoctor = asyncHandler(async (req, res) => {
 });
 
 const updateDoctor = asyncHandler(async (req, res) => {
-  const doctor = await Doctor.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const doctor = await Doctor.findOneAndUpdate(
+    { userId: req.body.userId },
+    req.body,
+    {
+      new: true,
+    }
+  );
   if (!doctor) {
     return res.status(400).json({ error: "something went wrong" });
   }

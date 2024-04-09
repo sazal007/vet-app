@@ -4,6 +4,7 @@ import SideBar from "../../components/SideBar";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../apis/auth/userApi";
 import PetProfileForm from "../../components/modals/PetProfileForm";
+import UpdateDocInfo from "../../components/modals/UpdateDocInfo";
 // import { ChatState } from "../../context/chatProvider";
 
 const Profile = () => {
@@ -74,6 +75,7 @@ const Profile = () => {
                         ))
                       }
                       {user.isDoctor === false && <Link to="/profile/register-as-vet"><li className="mb-2 cursor-pointer">Register as vet</li></Link>}
+                      {user.isDoctor === true && <UpdateDocInfo docId={user._id} />}
                       <li className="mb-2 cursor-pointer" onClick={logoutHandler}>Logout</li>
                     </ul>
                   </div>
