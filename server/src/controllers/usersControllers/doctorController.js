@@ -93,7 +93,6 @@ const changeStatus = asyncHandler(async (req, res) => {
   notification.push({
     type: "doctor-account-request-updated",
     message: `Your Doctor Account Request Has ${status} `,
-    onClickPath: "/notification",
   });
   user.isDoctor = status === "approved" ? true : false;
   await user.save();
