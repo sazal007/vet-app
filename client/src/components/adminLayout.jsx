@@ -6,17 +6,57 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
+import { Layout, Menu, Button, theme, Popover, Badge } from 'antd';
 import { useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
+import { FaRegBell } from "react-icons/fa6";
+import { ChatState } from "../context/chatProvider";
+import { logoutUser } from "../apis/auth/userApi";
+import axios from "axios";
+import { useToast } from "../context/toastProvider";
 
 // eslint-disable-next-line react/prop-types
 const AdminLayout = ({ children }) => {
   const navigate = useNavigate();
+  const { user } = ChatState();
+  const { showToast } = useToast();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleNotification = async () => {
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/get-notification`, { userId: user._id }, {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      if (res.data.success) {
+        showToast(res.data.message, "success");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const content = (
+    <div className="w-[17rem] bg-slate-50 p-2 rounded cursor-pointer">
+      {
+        user?.notification.map((n, i) => (
+          <div key={i} className="flex items-center justify-between" onClick={() => navigate('/admin/doctors-list')}>
+            <div onClick={() => handleNotification()}><p>{n.message}</p></div>
+          </div>
+        ))
+      }
+    </div>
+  );
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate('/login');
+  }
   return (
     <>
       <Layout className="min-h-screen">
@@ -80,7 +120,14 @@ const AdminLayout = ({ children }) => {
                 marginRight: 16,
               }}
             >
-              <button className="btn btn-error">Logout</button>
+              <div className="mt-2 flex items-center gap-4">
+                <Popover content={content} title="Notifications" trigger="click">
+                  <Badge size="small" count={user?.notification.length}>
+                    <FaRegBell className="text-xl cursor-pointer" />
+                  </Badge>
+                </Popover>
+                <button className="btn btn-error cursor-pointer" onClick={handleLogout} >Logout</button>
+              </div>
             </div>
           </Header>
           <Content

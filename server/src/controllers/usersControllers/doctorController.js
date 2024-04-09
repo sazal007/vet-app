@@ -26,22 +26,21 @@ const registerDoctor = asyncHandler(async (req, res) => {
   });
 
   const adminUser = await User.findOne({ role: "admin" });
-  const notifcation = adminUser.notification;
-  notifcation.push({
-    type: "apply-doctor-request",
-    message: `${newDoctor.firstName} ${newDoctor.lastName} Has Applied For A Doctor Account`,
-    data: {
-      doctorId: newDoctor._id,
-      name: newDoctor.firstName + " " + newDoctor.lastName,
-      onClickPath: "/admin/docotrs",
-    },
-  });
+  if (adminUser) {
+    // Appending a new notification to the admin user's notifications
+    adminUser.notification.push({
+      type: "apply-doctor-request",
+      message: `${newDoctor.firstName} ${newDoctor.lastName} has applied for a doctor account.`,
+      data: {
+        doctorId: newDoctor._id,
+        name: `${newDoctor.firstName} ${newDoctor.lastName}`,
+        onClickPath: "/admin/doctors-list",
+      },
+    });
 
-  await User.findByIdAndUpdate(adminUser._id, { notifcation });
-  res.status(201).send({
-    success: true,
-    message: "Doctor Account Applied Successfully",
-  });
+    // Saving the changes to the admin user
+    await adminUser.save();
+  }
 });
 
 const deleteDoctor = asyncHandler(async (req, res) => {

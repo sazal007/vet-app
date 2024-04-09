@@ -61,6 +61,8 @@ const authUser = asyncHandler(async (req, res) => {
       pic: user.pic,
       role: user.role,
       isDoctor: user.isDoctor,
+      notification: user.notification,
+      seennotification: user.seennotification,
       token: generateToken(user._id),
     });
   } else {
@@ -92,16 +94,17 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 const getAllNotificaton = asyncHandler(async (req, res) => {
+  // Find the user by ID provided in the request body
   const user = await User.findOne({ _id: req.body.userId });
-  const seennotification = user.seennotification;
-  const notification = user.notification;
-  seennotification.push(...notification);
+  // Append current unread notifications to seen notifications
+  user.seennotification.push(...user.notification);
   user.notification = [];
-  user.seennotification = notification;
+  // Save the changes to the user document in the database
   const updatedUser = await user.save();
+  // Send a success response
   res.status(200).send({
     success: true,
-    message: "all notification marked as read",
+    message: "All notifications marked as read",
     data: updatedUser,
   });
 });
