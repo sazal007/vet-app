@@ -66,7 +66,7 @@ const updateDoctor = asyncHandler(async (req, res) => {
 });
 
 const getDoctorDetails = asyncHandler(async (req, res) => {
-  const doctor = await Doctor.findById(req.params.id);
+  const doctor = await Doctor.findOne({ userId: req.user._id });
   if (!doctor) {
     return res.status(400).json({ error: "something went wrong" });
   }

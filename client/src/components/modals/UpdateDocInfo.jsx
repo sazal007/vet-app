@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useToast } from "../../context/toastProvider";
-import { updateDocDetails } from "../../apis/vet/doctorApi";
+import { getDoctorDetails, updateDocDetails } from "../../apis/vet/doctorApi";
 
 // eslint-disable-next-line react/prop-types
 const UpdateDocInfo = ({ docId }) => {
@@ -12,10 +12,39 @@ const UpdateDocInfo = ({ docId }) => {
   const [address, setAddress] = useState("");
   const [specialization, setSpecialization] = useState("");
   const [experience, setExperience] = useState("");
-  const [feesPerCunsaltation, setFeesPerCunsaltation] = useState("");
+  const [feesPerCunsaltation, setFeesPerCunsaltation] = useState();
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const { showToast } = useToast();
+
+  const fetchDocdetails = async () => {
+    getDoctorDetails()
+      .then((response) => {
+        const { success, message, data } = response;
+        if (success && data) {
+          setFirstName(data.firstName);
+          setLastName(data.lastName);
+          setEmail(data.email);
+          setPhone(data.phone);
+          setWebsite(data.website);
+          setAddress(data.address);
+          setSpecialization(data.specialization);
+          setExperience(data.experience);
+          setFeesPerCunsaltation(data.feesPerCunsaltation);
+          setStartTime(data.timings.startTime);
+          setEndTime(data.timings.endTime);
+        } else {
+          console.error("Failed to fetch data:", message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    fetchDocdetails();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +63,7 @@ const UpdateDocInfo = ({ docId }) => {
         endTime
       }
     };
-    console.log(vetData)
+    // console.log(vetData)
     updateDocDetails(docId, vetData)
       .then(() => {
         showToast("Details updated successfully", "success");

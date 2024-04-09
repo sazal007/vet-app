@@ -39,6 +39,25 @@ export const registerAsVet = async (userData) => {
   }
 };
 
+export const getDoctorDetails = async () => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const token = userInfo?.token;
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/doctor/get-doctor`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const updateDocDetails = async (id, formData) => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const token = userInfo?.token;
