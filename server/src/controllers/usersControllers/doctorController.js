@@ -77,6 +77,18 @@ const getDoctorDetails = asyncHandler(async (req, res) => {
   });
 });
 
+const getSingleDoctor = asyncHandler(async (req, res) => {
+  const doctor = await Doctor.findById(req.params.id);
+  if (!doctor) {
+    return res.status(400).json({ error: "something went wrong" });
+  }
+  res.status(200).send({
+    success: true,
+    message: "doctor data fetch success",
+    data: doctor,
+  });
+});
+
 const getApprovedDoctor = asyncHandler(async (req, res) => {
   const doctors = await Doctor.find({ status: "approved" });
   if (!doctors) {
@@ -150,4 +162,5 @@ module.exports = {
   changeStatus,
   doctorAppointments,
   acceptAppointment,
+  getSingleDoctor,
 };
