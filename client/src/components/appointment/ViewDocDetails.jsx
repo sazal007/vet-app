@@ -33,10 +33,6 @@ const ViewDocDetails = () => {
 
   const handleBooking = () => {
     setIsAvailable(true);
-    if (!date || !time) {
-      showToast("Please select date and time", "error")
-      return
-    }
     const appointmentData = {
       doctorId: id,
       userId: user._id,
@@ -56,6 +52,10 @@ const ViewDocDetails = () => {
   }
 
   const handleAvailability = () => {
+    if (!date || !time) {
+      showToast("Please select date and time")
+      return
+    }
     const info = {
       doctorId: id,
       date: date,
