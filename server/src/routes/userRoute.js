@@ -18,10 +18,10 @@ router.post("/register", upload.single("pic"), registerUser);
 router.post("/login", authUser);
 router.get("/", protect, allUsers);
 router.get("/get-all-user", getAllUsers);
-router.post("/get-notification", getAllNotificaton);
-router.post("/delete-notification", deleteNotification);
-router.post("/book-appointment", bookAppointment);
-router.post("/check-availability", checkAvailability);
-router.get("/get-appointments", getAppointments);
+router.post("/get-notification", protect, getAllNotificaton);
+router.post("/delete-notification", protect, deleteNotification);
+router.post("/book-appointment", protect, bookAppointment);
+router.post("/check-availability", protect, checkAvailability);
+router.get("/get-appointments", protect, getAppointments);
 
 module.exports = router;
