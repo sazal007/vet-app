@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { getSingleDoctor } from "../../apis/vet/doctorApi";
 import { useParams } from "react-router-dom"
 import SideBar from "../SideBar";
-
-
+import { appointmentBooking } from "../../apis/vet/appointment";
+import { ChatState } from "../../context/chatProvider";
+import { useToast } from "../../context/toastProvider";
 
 const ViewDocDetails = () => {
   const [details, setDetails] = useState({});
-  const [date, setDate] = useState([]);
-  const [timings, setTimings] = useState();
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState();
   const [isAvailable, setIsAvailable] = useState();
   const { id } = useParams();
+  const { user } = ChatState();
+  const { showToast } = useToast()
 
   useEffect(() => {
     fetchDocDetails()
@@ -25,6 +28,25 @@ const ViewDocDetails = () => {
       })
       .catch((err) => {
         console.log(err);
+      });
+  }
+
+  const handleBooking = () => {
+    const appointmentData = {
+      doctorId: id,
+      userId: user._id,
+      doctorInfo: details,
+      userInfo: user,
+      date: date,
+      time: time,
+    };
+    appointmentBooking(appointmentData)
+      .then((response) => {
+        showToast(response.message, "success")
+      })
+      .catch((err) => {
+        console.log(err);
+        showToast("Failed to book appointment. Please try again.", "error");
       });
   }
 
@@ -71,10 +93,14 @@ const ViewDocDetails = () => {
                         <span className="label-text"><strong>Select Time for Appointment:</strong></span>
                       </div>
                       <input type="time" name="startTime"
-                        className="input input-bordered w-full max-w-xs" value={timings} onChange={(e) => setTimings(e.target.value)} />
+                        className="input input-bordered w-full max-w-xs" value={time} onChange={(e) => setTime(e.target.value)} />
                     </label>
 
                     <button className="btn btn-primary mt-4" onClick={() => setIsAvailable()}>Check Availability</button>
+
+                    {!isAvailable && (
+                      <button className="btn btn-primary mt-4" onClick={handleBooking}>Book</button>
+                    )}
                   </div>
                 </div>
               </div>
