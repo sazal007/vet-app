@@ -120,7 +120,7 @@ const changeStatus = asyncHandler(async (req, res) => {
 });
 
 const doctorAppointments = asyncHandler(async (req, res) => {
-  const doctor = await Doctor.findOne({ userId: req.body.userId });
+  const doctor = await Doctor.findOne({ userId: req.user.id });
   const appointments = await Appointment.find({
     doctorId: doctor._id,
   });
@@ -132,22 +132,24 @@ const doctorAppointments = asyncHandler(async (req, res) => {
 });
 
 const acceptAppointment = asyncHandler(async (req, res) => {
-  const { appointmentsId, status } = req.body;
-  const appointment = await Appointment.findByIdAndUpdate(appointmentsId, {
-    status,
-  });
+  const { appointmentsId, status, userId } = req.body;
+  const appointment = await Appointment.findByIdAndUpdate(
+    appointmentsId,
+    { status },
+    { new: true }
+  );
 
-  const user = await User.findOne({ _id: appointment.userId });
+  const user = await User.findOne({ _id: userId });
   const notification = user.notification;
   notification.push({
     type: "status-updated",
     message: `your appointment has been updated ${status}`,
-    onClickPath: "/doctor-appointments",
+    onClickPath: "/appointments",
   });
   await user.save();
   res.status(200).send({
     success: true,
-    message: "Appointment Status Updated",
+    message: `Appointment ${status}`,
     data: appointment,
   });
 });
