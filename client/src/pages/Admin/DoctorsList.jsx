@@ -70,7 +70,7 @@ const DoctorsList = () => {
                                 user.status === "pending" ? (
                                   <button className="btn btn-sm btn-primary" onClick={() => handleStatus(user, "approved")}>Approve</button>
                                 ) : (
-                                  <button className="btn btn-sm btn-error">Remove</button>
+                                  <button className="btn btn-sm btn-error" onClick={() => handleStatus(user, "pending")}>Remove</button>
                                 )
                               }
                             </td>
