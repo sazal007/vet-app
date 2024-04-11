@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../apis/auth/userApi";
 import PetProfileForm from "../../components/modals/PetProfileForm";
 import UpdateDocInfo from "../../components/modals/UpdateDocInfo";
+import ViewUserAppointment from "../../components/appointment/ViewUserAppointment";
 // import { ChatState } from "../../context/chatProvider";
 
 const Profile = () => {
@@ -110,7 +111,12 @@ const Profile = () => {
                     <PetProfileForm headingText="Create Profile" button1Text="Create Profile" button2Text="Create" refreshProfile={fetchProfile} />
                   </div>
                 )}
+                <div className="bg-base-200 shadow rounded-lg p-6">
+                  <h2 className="text-xl font-bold mb-4">Your Appointments</h2>
+                  <ViewUserAppointment />
+                </div>
               </div>
+              {/* <div>s</div> */}
             </div>
           </div>
         </main>

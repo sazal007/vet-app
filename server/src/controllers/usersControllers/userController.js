@@ -177,7 +177,9 @@ const checkAvailability = asyncHandler(async (req, res) => {
 });
 
 const getAppointments = asyncHandler(async (req, res) => {
-  const appointments = await Appointment.find({ userId: req.body.userId });
+  const appointments = await Appointment.find({ userId: req.user.id })
+    .populate("doctorInfo", "firstName lastName phone email")
+    .populate("userInfo", "name email");
   res.status(200).send({
     success: true,
     data: appointments,
