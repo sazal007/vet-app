@@ -4,11 +4,13 @@ import Navbar from "../Navbar"
 import { useNavigate, useParams } from "react-router-dom"
 import { getProductDetail } from "../../apis/e-commerce/productsApi"
 import { useToast } from "../../context/toastProvider"
+import { useCart } from "../../context/cartProvider"
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
   let { id } = useParams();
   const { showToast } = useToast();
+  const { addToCart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,7 @@ const ProductDetails = () => {
         setProduct(data);
       })
       .catch(err => console.log(err))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
 
@@ -60,7 +63,7 @@ const ProductDetails = () => {
               <p className="text-base leading-4 mt-7 text-gray-600">Product Code: {product._id}</p>
               <p className="text-base leading-4 mt-4 text-gray-600">Price: NRs. {product.price}</p>
             </div>
-            <button className="btn btn-primary mt-6">add to cart</button>
+            <button className="btn btn-primary mt-6" onClick={() => addToCart(product)}>add to cart</button>
           </div>
         </div>
       </main>
