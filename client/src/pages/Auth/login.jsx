@@ -18,8 +18,8 @@ const Login = () => {
       // Redirect the user according to their role
       if (isLoggedIn().role == 'admin') {
         navigate('/admin/dashboard');
-      } else if (isLoggedIn().role == 'doctor') {
-        navigate('/doctor');
+      } else if (isLoggedIn().isDoctor == true) {
+        navigate('/appointments');
       } else {
         navigate('/');
       }
