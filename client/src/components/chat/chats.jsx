@@ -61,7 +61,7 @@ const Chats = ({ fetchAgain }) => {
                         {/* Display latest message text */}
                         {chat.latestMessage && (
                           <p className="text-sm text-gray-600">
-                            {chat.latestMessage.sender._id === loggedUser._id ? 'You: ' : ''}
+                            {chat.latestMessage.sender._id === loggedUser._id}
                             {chat.latestMessage.text}
                           </p>
                         )}

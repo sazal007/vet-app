@@ -145,11 +145,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   </>
                 ))}
             </div>
-            <div className='w-full mt-3 h-screen flex flex-col justify-end rounded-md bg-base-100 overflow-y-hidden'>
+            <div className='w-full mt-3 h-screen rounded-md bg-base-100 overflow-y-hidden'>
               {
                 loading ? (<span className="loading loading-spinner loading-lg m-auto"></span>) : (
                   <>
-                    <div>
+                    <div className="h-[calc(100%-4rem)] overflow-y-auto flex flex-col justify-end">
                       <ScrollableChat messages={messages} />
                     </div>
                   </>
