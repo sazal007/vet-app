@@ -71,7 +71,7 @@ const Profile = () => {
                     <span className="text-gray-700 uppercase font-bold tracking-wider mb-2">Settings</span>
                     <ul>
                       {
-                        profile.map((p, i) => (
+                        Array.isArray(profile) && profile.map((p, i) => (
                           <li className="mb-2" key={i}><PetProfileForm headingText="Edit Profile" button1Text="Edit pet profile" button2Text="Edit" refreshProfile={fetchProfile} petId={p._id} initialPetName={p.pet_name} initialAge={p.age} initialSpecies={p.species} initialBreed={p.breed} initialGender={p.gender} initialBirthdate={p.birthdate} initialDescription={p.description} initialImage={p.image} isEditMode={true} /></li>
                         ))
                       }
@@ -105,7 +105,7 @@ const Profile = () => {
                   ))
                 ) : (
                   // No Pet Profile Found, display a message and a button to create a profile
-                  <div className="bg-base-200 shadow rounded-lg p-6 text-center">
+                  <div className="bg-base-200 mb-3 shadow rounded-lg p-6 text-center">
                     <h2 className="text-xl font-bold mb-4">No Pet Profile Found</h2>
                     <p className="mb-4">Your pet&apos;s profile hasn&apos;t been created yet.</p>
                     <PetProfileForm headingText="Create Profile" button1Text="Create Profile" button2Text="Create" refreshProfile={fetchProfile} />
