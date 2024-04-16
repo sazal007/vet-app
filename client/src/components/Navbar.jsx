@@ -11,9 +11,9 @@ const Navbar = () => {
     <>
       <nav className="bg-base-200 w-full z-20 top-0 start-0 text-[#000]">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          {/* <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+          {/* <Link to="#" className="flex items-center space-x-3 rtl:space-x-reverse">
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Pa</span>
-          </a> */}
+          </Link> */}
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <div className="flex items-center justify-center gap-5">
               {
@@ -25,23 +25,26 @@ const Navbar = () => {
                 </Link>
               }
               {
-                user && <p className="tooltip tooltip-bottom" data-tip="Profile"><CgProfile className="text-2xl" /></p>
+                user &&
+                <Link to="/profile">
+                  <p className="tooltip tooltip-bottom" data-tip="Profile"><CgProfile className="text-2xl" /></p>
+                </Link>
               }
             </div>
           </div>
           <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 ">
               <li>
-                <a href="#" className="block py-2 px-3" aria-current="page">Home</a>
+                <Link to="/" className="block py-2 px-3" aria-current="page">Home</Link>
               </li>
               <li>
-                <a href="#" className="block py-2 px-3">Shop</a>
+                <Link to="/shop" className="block py-2 px-3">Shop</Link>
               </li>
               <li>
-                <a href="#" className="block py-2 px-3">Services</a>
+                <Link to="/messages" className="block py-2 px-3">Messages</Link>
               </li>
               <li>
-                <a href="#" className="block py-2 px-3">Contact</a>
+                <Link to="/community" className="block py-2 px-3">Community</Link>
               </li>
             </ul>
           </div>
