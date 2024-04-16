@@ -1,29 +1,34 @@
 import { Link, useNavigate } from "react-router-dom"
 import Footer from "../../components/Footer"
 import Navbar from "../../components/Navbar"
-import { isLoggedIn, loginUser } from "../../apis/auth/userApi";
+import { loginUser } from "../../apis/auth/userApi";
 import { useState } from "react";
+import { useToast } from "../../context/toastProvider";
+import { ChatState } from "../../context/chatProvider";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { showToast } = useToast();
+  const { user } = ChatState();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const { data } = await loginUser(email, password);
-      console.log('Login successful', data);
-      // Redirect the user according to their role
-      if (isLoggedIn().role == 'admin') {
-        navigate('/admin/dashboard');
-      } else if (isLoggedIn().isDoctor == true) {
-        navigate('/appointments');
-      } else {
-        navigate('/');
-      }
-
+      loginUser(email, password)
+        .then(() => {
+          showToast('Login successful', 'success');
+          // Redirect the user according to their role
+          if (user.role === "admin") {
+            navigate('/admin/dashboard');
+          } else if (user.isDoctor === true) {
+            navigate('/appointments');
+          } else {
+            navigate('/');
+          }
+        })
     } catch (error) {
       // Update error state to display error message
       setError(error.message);

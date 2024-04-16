@@ -18,6 +18,9 @@ import Profile from '../pages/main/Profile'
 import RegisterAsDoctor from '../pages/main/RegisterAsDoctor'
 import Appointments from '../pages/main/Appointments'
 import ViewDocDetails from '../components/appointment/ViewDocDetails'
+import AdminRoutes from './selectiveRoutes/adminRoutes'
+import UserRoutes from './selectiveRoutes/userRoutes'
+import Community from '../pages/main/Community'
 
 const MyRoutes = () => {
   return (
@@ -28,21 +31,29 @@ const MyRoutes = () => {
             <CartProvider>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/sign-up" element={<Register />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                <Route path="/admin/products" element={<Products />} />
-                <Route path="/admin/doctors-list" element={<DoctorsList />} />
-                <Route path="/admin/users" element={<UsersList />} />
-                <Route path="/messages" element={<ChatsPage />} />
                 <Route path="/shop" element={<UserProducts />} />
                 <Route path="/shop/:id" element={<ProductDetails />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/profile/register-as-vet" element={<RegisterAsDoctor />} />
-                <Route path="/appointments" element={<Appointments />} />
-                <Route path="/appointment/booking/:id" element={<ViewDocDetails />} />
-                <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 error */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/sign-up" element={<Register />} />
+                {/* user routes */}
+                <Route element={<UserRoutes />}>
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/messages" element={<ChatsPage />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/profile/register-as-vet" element={<RegisterAsDoctor />} />
+                  <Route path="/appointments" element={<Appointments />} />
+                  <Route path="/appointment/booking/:id" element={<ViewDocDetails />} />
+                  <Route path="/community" element={<Community />} />
+                </Route>
+                {/* admin routes */}
+                <Route element={<AdminRoutes />}>
+                  <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                  <Route path="/admin/products" element={<Products />} />
+                  <Route path="/admin/doctors-list" element={<DoctorsList />} />
+                  <Route path="/admin/users" element={<UsersList />} />
+                </Route>
+                {/* Catch-all route for 404 error */}
+                <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </CartProvider>
           </ToastProvider>
