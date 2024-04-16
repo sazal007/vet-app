@@ -15,6 +15,7 @@ const Chats = ({ fetchAgain }) => {
     setSelectedChat,
     chats,
     setChats,
+    user,
   } = ChatState();
   const { showToast } = useToast();
   // console.log(user.token);
@@ -52,8 +53,8 @@ const Chats = ({ fetchAgain }) => {
             {
               chats ? (
                 <div className="overflow-y-scroll">
-                  {
-                    chats.map((chat) => (
+                  {chats.map((chat) => (
+                    chat && chat._id ? (
                       <div key={chat._id} className={`mb-1 pt-2 ${selectedChat === chat ? "bg-black/5" : ""} rounded-md cursor-pointer hover:bg-black/5`} onClick={() => setSelectedChat(chat)}>
                         <p className={`mx-3 py-2`}>
                           {!chat.isGroupChat ? getSender(loggedUser, chat.users) : chat.chatName}
@@ -61,14 +62,14 @@ const Chats = ({ fetchAgain }) => {
                         {/* Display latest message text */}
                         {chat.latestMessage && (
                           <p className="text-sm text-gray-600">
-                            {chat.latestMessage.sender._id === loggedUser._id}
+                            {chat.latestMessage.sender._id === user._id}
                             {chat.latestMessage.text}
                           </p>
                         )}
                         <hr className="mb-2 border-black/10" />
                       </div>
-                    ))
-                  }
+                    ) : null
+                  ))}
                 </div>
               ) : (
                 <SearchLoading />
