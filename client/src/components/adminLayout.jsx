@@ -2,10 +2,12 @@ import { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
 } from '@ant-design/icons';
+import { LuLayoutDashboard } from "react-icons/lu";
+import { TbBrandProducthunt } from "react-icons/tb";
+import { FaRegUser } from "react-icons/fa";
+import { MdChecklistRtl } from "react-icons/md";
+import { LiaClipboardListSolid } from "react-icons/lia";
 import { Layout, Menu, Button, theme, Popover, Badge } from 'antd';
 import { useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
@@ -71,27 +73,27 @@ const AdminLayout = ({ children }) => {
             items={[
               {
                 key: '/admin/dashboard',
-                icon: <UserOutlined />,
+                icon: <LuLayoutDashboard />,
                 label: 'Dashboard',
               },
               {
                 key: '/admin/products',
-                icon: <VideoCameraOutlined />,
+                icon: <TbBrandProducthunt />,
                 label: 'Products',
               },
               {
                 key: '/admin/users',
-                icon: <UploadOutlined />,
+                icon: <FaRegUser />,
                 label: 'Users',
               },
               {
                 key: '/admin/doctors-list',
-                icon: <UploadOutlined />,
+                icon: <MdChecklistRtl />,
                 label: 'Doctors Requests',
               },
               {
                 key: '/admin/orders',
-                icon: <UploadOutlined />,
+                icon: <LiaClipboardListSolid />,
                 label: 'Orders',
               },
             ]}

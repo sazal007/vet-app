@@ -10,8 +10,12 @@ const ChatProvider = ({ children }) => {
   const [notification, setNotification] = useState([]);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("userInfo"));
-    setUser(data);
+    const interval = setInterval(() => {
+      const data = JSON.parse(localStorage.getItem("userInfo"));
+      setUser(data);
+    }, 5000);
+
+    return () => clearInterval(interval); // Clean up the interval
   }, [])
 
   return (
