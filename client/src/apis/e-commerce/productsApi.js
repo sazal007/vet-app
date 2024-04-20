@@ -19,6 +19,8 @@ export const getCategories = async () => {
 
 // Function to add category
 export const addCategory = async (category_name) => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const token = userInfo?.token;
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/category/add-category`,
@@ -26,6 +28,7 @@ export const addCategory = async (category_name) => {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -36,6 +39,8 @@ export const addCategory = async (category_name) => {
 };
 
 export const updateCategory = async (id, category_name) => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const token = userInfo?.token;
   try {
     const response = await axios.put(
       `${import.meta.env.VITE_BACKEND_URL}/category/update-category/${id}`,
@@ -43,6 +48,7 @@ export const updateCategory = async (id, category_name) => {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -54,12 +60,15 @@ export const updateCategory = async (id, category_name) => {
 
 // Function to delete category
 export const deleteCategory = async (id) => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const token = userInfo?.token;
   try {
     const response = await axios.delete(
       `${import.meta.env.VITE_BACKEND_URL}/category/delete-category/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -104,6 +113,8 @@ export const getProductDetail = async (id) => {
 
 // Function to add product
 export const addProduct = async (formData) => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const token = userInfo?.token;
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/product/add-product`,
@@ -111,6 +122,7 @@ export const addProduct = async (formData) => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -121,6 +133,8 @@ export const addProduct = async (formData) => {
 };
 
 export const updateProduct = async (id, formData) => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const token = userInfo?.token;
   try {
     const response = await axios.put(
       `${import.meta.env.VITE_BACKEND_URL}/product/update-product/${id}`,
@@ -128,6 +142,7 @@ export const updateProduct = async (id, formData) => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -139,12 +154,15 @@ export const updateProduct = async (id, formData) => {
 
 // Function to delete product
 export const deleteProduct = async (id) => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const token = userInfo?.token;
   try {
     const response = await axios.delete(
       `${import.meta.env.VITE_BACKEND_URL}/product/delete-product/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
