@@ -1,10 +1,9 @@
 import { Link, useNavigate } from "react-router-dom"
 import Footer from "../../components/Footer"
 import Navbar from "../../components/Navbar"
-import { loginUser } from "../../apis/auth/userApi";
+import { isLoggedIn, loginUser } from "../../apis/auth/userApi";
 import { useState } from "react";
 import { useToast } from "../../context/toastProvider";
-import { ChatState } from "../../context/chatProvider";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +11,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const { user } = ChatState();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,9 +20,9 @@ const Login = () => {
         .then(() => {
           showToast('Login successful', 'success');
           // Redirect the user according to their role
-          if (user.role === "admin") {
+          if (isLoggedIn().role === 'admin') {
             navigate('/admin/dashboard');
-          } else if (user.isDoctor === true) {
+          } else if (isLoggedIn().isDoctor === true) {
             navigate('/appointments');
           } else {
             navigate('/');
@@ -31,6 +30,7 @@ const Login = () => {
         })
     } catch (error) {
       // Update error state to display error message
+      console.log(error);
       setError(error.message);
     }
   };
@@ -42,7 +42,7 @@ const Login = () => {
         {/* <!-- Left: Image --> */}
         <div className="m-32 mt-56 p-5 w-1/2 h-screen hidden lg:block flex-col">
           <img src="https://placehold.co/800x/667fff/ffffff.png?text=Your+Image&font=Montserrat" alt="Placeholder Image" className="object-cover h-[25rem] w-[30rem]" />
-          <p className="w-[30rem] mt-5 p-2 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem nam libero dolorem, pariatur odit nisi autem est cumque harum fuga maxime dicta quidem maiores sint error velit molestias, assumenda explicabo!</p>
+          <p className="w-[30rem] mt-5 p-2 text-center">Log in to continue accessing personalized advice, connect with vets, and shop for your pet’s needs. We’re excited to see you again!</p>
         </div>
         {/* <!-- Right: Login Form --> */}
         <div className="lg:p-44 md:p-52 sm:20 p-8 w-full lg:w-1/2 border-2 bg-[#fff]">

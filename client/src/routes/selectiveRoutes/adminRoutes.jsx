@@ -1,10 +1,9 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import { ChatState } from "../../context/chatProvider";
 import { useEffect, useState } from "react";
 import { useToast } from "../../context/toastProvider";
+import { isLoggedIn } from "../../apis/auth/userApi";
 
 const AdminRoutes = () => {
-  const { user } = ChatState();
   const { showToast } = useToast();
   const location = useLocation();
   const [isAllowed, setIsAllowed] = useState(false);
@@ -13,8 +12,8 @@ const AdminRoutes = () => {
   useEffect(() => {
     try {
       setIsLoading(true); // Start loading
-      if (user) {
-        if (user.role === "admin") {
+      if (isLoggedIn()) {
+        if (isLoggedIn().role === "admin") {
           setIsAllowed(true);
         } else {
           showToast("You are not authorized to access this page", "error");
@@ -28,7 +27,7 @@ const AdminRoutes = () => {
       console.log(err)
       setIsLoading(false);
     }
-  }, [user]);
+  }, []);
 
   if (isLoading) {
     return (

@@ -3,9 +3,11 @@ import Footer from "../../components/Footer"
 import Navbar from "../../components/Navbar"
 import { useEffect, useRef, useState } from "react";
 import { registerUser } from "../../apis/auth/userApi";
+import { useToast } from "../../context/toastProvider";
 
 
 const Register = () => {
+  const { showToast } = useToast();
   let [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -46,6 +48,7 @@ const Register = () => {
         });
         if (file_ref.current) file_ref.current.value = null; // Reset file input
         console.log('Registration successful', data);
+        showToast("Registration Successful", "success");
       } else {
         console.error('Registration failed');
         setUserData({ ...userData, error: "Registration failed. Please try again." });
@@ -64,7 +67,7 @@ const Register = () => {
         {/* <!-- Left: Image --> */}
         <div className="m-32 mt-56 p-5 w-1/2 h-screen hidden lg:block flex-col">
           <img src="https://placehold.co/800x/667fff/ffffff.png?text=Your+Image&font=Montserrat" alt="Placeholder Image" className="object-cover h-[25rem] w-[30rem]" />
-          <p className="w-[30rem] mt-5 p-2 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem nam libero dolorem, pariatur odit nisi autem est cumque harum fuga maxime dicta quidem maiores sint error velit molestias, assumenda explicabo!</p>
+          <p className="w-[30rem] mt-5 p-2 text-center">Sign up today and start enjoying the benefits of instant access to expert veterinary advice, a supportive community of pet lovers, and a shop filled with everything your pet needs. Let&ipos;s make pet care easy and enjoyable together. Create your account now and become a part of a community that cares!</p>
         </div>
         {/* <!-- Right: Sign up Form --> */}
         <div className="lg:p-[7.5rem] md:p-52 sm:20 p-8 w-full lg:w-[47.23rem] border-2 bg-[#fff]">
