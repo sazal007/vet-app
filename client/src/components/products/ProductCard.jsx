@@ -34,7 +34,7 @@ const ProductCard = ({ products }) => {
       <main className="flex justify-center items-center gap-5 flex-wrap">
         {filteredProducts.map((product) => (
           <div className="card w-72 h-[29rem] bg-base-200 shadow-lg" key={product._id}>
-            <figure><img src={`${import.meta.env.VITE_BACKEND_IMAGE_URL}/${product.image}`} alt={product.product_name} onError={e => e.target.src = "/no_image_found.png"} /></figure>
+            <figure className="h-52"><img src={`${import.meta.env.VITE_BACKEND_IMAGE_URL}/${product.image}`} alt={product.product_name} onError={e => e.target.src = "/no_image_found.png"} /></figure>
             <div className="card-body">
               <h2 className="card-title">
                 {product.product_name}
