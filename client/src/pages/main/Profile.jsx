@@ -88,7 +88,7 @@ const Profile = () => {
                     <div key={i} className="bg-base-200 shadow rounded-lg p-6 mb-4">
                       <h2 className="text-xl font-bold mb-4">About Pet</h2>
                       <div className="flex flex-row-reverse justify-around">
-                        <img src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/${p.image}`} className="w-40 h-40 bg-gray-300 rounded-full mb-4 shrink-0" alt="Pet" />
+                        <img src={`${import.meta.env.VITE_BACKEND_IMAGE_URL}/${p.image}`} className="w-40 h-40 bg-gray-300 rounded-full mb-4 shrink-0" alt="Pet" />
                         <div>
                           <p>Pet name: {p.pet_name}</p>
                           <p>DOB: {new Date(p.birthdate).toLocaleDateString()}</p>

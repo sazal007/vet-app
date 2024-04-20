@@ -42,7 +42,7 @@ const Cart = () => {
                   <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5" key={index}>
                     <div className="flex w-2/5">
                       <div className="w-20">
-                        <img className="h-24" src={`${import.meta.env.VITE_BACKEND_IMAGE_URL}/${item.product_image}`} alt={item.product_name} onError={e => e.target.src = "/no_image_found.png"} />
+                        <img className="h-24" src={`${import.meta.env.VITE_BACKEND_IMAGE_URL}/${item.image}`} alt={item.product_name} onError={e => e.target.src = "/no_image_found.png"} />
                       </div>
                       <div className="flex flex-col justify-between ml-4 flex-grow">
                         <span className="font-bold text-sm">{item.product_name}</span>
