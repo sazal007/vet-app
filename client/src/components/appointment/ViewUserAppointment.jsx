@@ -13,7 +13,7 @@ const ViewUserAppointment = () => {
     getUserAppointments()
       .then((response) => {
         setAppointments(response.data);
-        // console.log(response.data)
+        console.log(response.data)
       })
       .catch((err) => {
         console.error(err);

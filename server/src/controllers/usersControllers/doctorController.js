@@ -123,7 +123,7 @@ const doctorAppointments = asyncHandler(async (req, res) => {
   const doctor = await Doctor.findOne({ userId: req.user.id });
   const appointments = await Appointment.find({
     doctorId: doctor._id,
-  });
+  }).populate("userInfo", "name email");
   res.status(200).send({
     success: true,
     message: "Doctor Appointments fetch Successfully",

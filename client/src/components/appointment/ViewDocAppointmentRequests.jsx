@@ -50,7 +50,7 @@ const ViewDocAppointmentRequests = () => {
               appointments.map((appointment, index) => (
                 <tr key={index}>
                   <th>{index + 1}</th>
-                  <td>Dr. {appointment.doctorInfo.firstName} {appointment.lastName}</td>
+                  <td>{appointment.userInfo.name}</td>
                   <td>{moment(appointment.date).format("DD-MM-YYYY")}</td>
                   <td>{moment(appointment.time).format("HH:mm")}</td>
                   <td>{appointment.status}</td>

@@ -37,7 +37,7 @@ const ViewDocDetails = () => {
       doctorId: id,
       userId: user._id,
       doctorInfo: details,
-      userInfo: user,
+      userInfo: user._id,
       date: date,
       time: time,
     };
