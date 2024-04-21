@@ -82,7 +82,7 @@ const Posts = () => {
     <div className="p-4 max-h-[200px] overflow-y-auto bg-gray-100 border-t border-gray-300">
       {comments.map((comment, index) => (
         <div key={index} className="comment text-sm p-2 bg-white border border-gray-200 rounded">
-          <strong>{comment.user.name}:</strong> {comment.text}
+          <strong>{comment.user ? comment.user.name : "Unknown"}:</strong> {comment.text}
         </div>
       ))}
       <div className="input-area mt-5 flex">
