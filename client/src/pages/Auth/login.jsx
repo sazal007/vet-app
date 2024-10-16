@@ -2,16 +2,25 @@ import { Link, useNavigate } from "react-router-dom"
 import Footer from "../../components/Footer"
 import Navbar from "../../components/Navbar"
 import { isLoggedIn, loginUser } from "../../apis/auth/userApi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "../../context/toastProvider";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const { showToast } = useToast();
 
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('rememberedEmail');
+    const storedPassword = localStorage.getItem('rememberedPassword');
+    if (storedEmail && storedPassword) {
+      setEmail(storedEmail);
+      setPassword(storedPassword);
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +28,15 @@ const Login = () => {
       loginUser(email, password)
         .then(() => {
           showToast('Login successful', 'success');
+          // Store credentials if "Remember Me" is checked
+          if (rememberMe) {
+            localStorage.setItem('rememberedEmail', email);
+            localStorage.setItem('rememberedPassword', password);
+          } else {
+            // Clear stored credentials if "Remember Me" is unchecked
+            localStorage.removeItem('rememberedEmail');
+            localStorage.removeItem('rememberedPassword');
+          }
           // Redirect the user according to their role
           if (isLoggedIn().role === 'admin') {
             navigate('/admin/dashboard');
@@ -29,9 +47,8 @@ const Login = () => {
           }
         })
     } catch (error) {
-      // Update error state to display error message
       console.log(error);
-      setError(error.message);
+      showToast(error.message, 'error');
     }
   };
   return (
@@ -64,15 +81,13 @@ const Login = () => {
             </div>
             {/* <!-- Remember Me Checkbox --> */}
             <div className="mb-4 flex items-center">
-              <input type="checkbox" id="remember" name="remember" className="text-blue-500" />
+              <input type="checkbox" id="remember" name="remember" className="text-blue-500" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
               <label htmlFor="remember" className="text-gray-600 ml-2">Remember Me</label>
             </div>
             {/* <!-- Forgot Password Link --> */}
             <div className="mb-6">
               <Link to="#" className="text-secondary-content hover:underline">Forgot Password?</Link>
             </div>
-            {/* Error message */}
-            {error && <p>{error}</p>}
             {/* <!-- Login Button --> */}
             <button type="submit" className="btn btn-primary text-lg font-semibold rounded-md py-2 px-4 w-full">Login</button>
           </form>

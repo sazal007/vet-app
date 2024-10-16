@@ -3,7 +3,7 @@ import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from "./C
 import { ChatState } from "../../context/chatProvider";
 // eslint-disable-next-line react/prop-types
 const ScrollableChat = ({ messages }) => {
-  const { user } = ChatState();
+  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
     <>

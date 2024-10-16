@@ -1,10 +1,11 @@
 import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
-import { ChatState } from "../context/chatProvider";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/cartProvider";
+import { isLoggedIn } from "../apis/auth/userApi";
+import { FiLogIn } from "react-icons/fi";
 const Navbar = () => {
-  const { user } = ChatState();
+  const user = isLoggedIn();
   const { cartItems } = useCart();
 
   return (
@@ -16,6 +17,12 @@ const Navbar = () => {
           </Link> */}
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <div className="flex items-center justify-center gap-5">
+              {
+                !user &&
+                <Link to="/login">
+                  <p className="tooltip tooltip-bottom" data-tip="Login"><FiLogIn className="text-2xl" /></p>
+                </Link>
+              }
               {
                 user &&
                 <Link to="/cart">

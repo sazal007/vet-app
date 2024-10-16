@@ -33,9 +33,7 @@ export const loginUser = async (email, password) => {
 
     // If the request is successful, the server should respond with the user data and a token
     if (response.data) {
-      // For example, you could store the received token in localStorage or cookies as per your application's requirements
       localStorage.setItem("userInfo", JSON.stringify(response.data));
-
       return response.data;
     }
   } catch (error) {

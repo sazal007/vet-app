@@ -14,13 +14,14 @@ const DoctorsList = () => {
       .catch(err => console.log(err));
   };
 
-  const handleStatus = (record, status) => {
-    handleDocStatus(record, status)
-      .then(() => {
-        fetchDoctors();
-      })
-      .catch(err => console.log(err));
-  }
+  const handleStatus = async (record, status) => {
+    try {
+      await handleDocStatus(record, status);
+      fetchDoctors();
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <>
       <>

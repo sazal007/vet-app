@@ -149,7 +149,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               {
                 loading ? (<span className="loading loading-spinner loading-lg m-auto"></span>) : (
                   <>
-                    <div className="h-[calc(100%-4rem)] overflow-y-auto flex flex-col justify-end">
+                    <div className="h-[calc(100%-4rem)] overflow-y-auto flex flex-col justify-end item">
                       <ScrollableChat messages={messages} />
                     </div>
                   </>
@@ -163,7 +163,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 ) : (
                   <></>
                 )}
-                <input type="text" placeholder="Type message..." className="ml-5 my-4 input input-bordered input-primary w-[96%] rounded-lg" value={newMessage}
+                <input type="text" placeholder="Type message..." className="ml-5 input input-bordered input-primary w-[96%] rounded-lg" value={newMessage}
                   onChange={typingHandler} />
               </div>
             </div>

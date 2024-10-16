@@ -21,6 +21,7 @@ import ViewDocDetails from '../components/appointment/ViewDocDetails'
 import AdminRoutes from './selectiveRoutes/adminRoutes'
 import UserRoutes from './selectiveRoutes/userRoutes'
 import Community from '../pages/main/Community'
+import Shipping from '../pages/main/Shipping'
 
 const MyRoutes = () => {
   return (
@@ -35,6 +36,7 @@ const MyRoutes = () => {
                 <Route path="/shop/:id" element={<ProductDetails />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<Register />} />
+                <Route path='/shipping' element={<Shipping />} />
                 {/* user routes */}
                 <Route element={<UserRoutes />}>
                   <Route path="/cart" element={<Cart />} />

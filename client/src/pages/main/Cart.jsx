@@ -1,25 +1,34 @@
-import { Link } from "react-router-dom"
-import Footer from "../../components/Footer"
-import Navbar from "../../components/Navbar"
-import { useCart } from "../../context/cartProvider"
-import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
+import { useCart } from "../../context/cartProvider";
+import { useState, } from "react";
 
 const Cart = () => {
   const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useCart();
-
-  // State to hold the selected shipping cost
   const [shippingCost, setShippingCost] = useState(0);
+  const navigate = useNavigate();
 
-  // Function to update the state when the shipping option changes
   const handleShippingChange = (event) => {
     const selectedShippingCost = parseFloat(event.target.value);
     setShippingCost(selectedShippingCost);
   };
 
-  // Calculate the total cost including shipping
   const getTotalCostWithShipping = () => {
     return getCartTotal() + shippingCost;
   };
+
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    const totalWithShipping = getTotalCostWithShipping();
+    const orderSummary = JSON.stringify({
+      cartItems,
+      totalWithShipping
+    });
+    sessionStorage.setItem("orderSummary", orderSummary);
+    navigate("/shipping");
+  };
+
   return (
     <>
       <Navbar />
@@ -47,25 +56,21 @@ const Cart = () => {
                       <div className="flex flex-col justify-between ml-4 flex-grow">
                         <span className="font-bold text-sm">{item.product_name}</span>
                         <span className="text-red-500 text-xs">{item.category.category_name}</span>
-                        <a href="#" className="font-semibold hover:text-red-500 text-gray-500 text-xs" onClick={() => { removeFromCart(item) }}>Remove</a>
+                        <a href="#" className="font-semibold hover:text-red-500 text-gray-500 text-xs" onClick={() => removeFromCart(item)}>Remove</a>
                       </div>
                     </div>
                     <div className="flex justify-center w-1/5">
-                      <button onClick={() => { removeFromCart(item) }}>
-                        <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                        </svg>
+                      <button onClick={() => removeFromCart(item)}>
+                        <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" /></svg>
                       </button>
                       <input type="text" className="mx-2 border text-center w-16" value={item.quantity} disabled />
-                      <button onClick={() => { addToCart(item) }}>
-                        <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512" >
-                          <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                        </svg>
+                      <button onClick={() => addToCart(item)}>
+                        <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" /></svg>
                       </button>
                     </div>
                     <span className="text-center w-1/5 font-semibold text-sm">Nrs. {item.price}</span>
                     <span className="text-center w-1/5 font-semibold text-sm">Nrs. {item.price * item.quantity}</span>
                   </div>
-
                 ))
               }
               <div className="flex items-center justify-between font-semibold text-sm mt-14">
@@ -73,7 +78,7 @@ const Cart = () => {
                   <svg className="fill-current mr-2 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
                   Continue Shopping
                 </Link>
-                {/* <div className="w-40 flex cursor-pointer" onClick={clearCart()}>Clear Cart</div> */}
+                <button className="w-40 flex cursor-pointer" onClick={() => clearCart()}>Clear Cart</button>
               </div>
             </div>
 
@@ -102,7 +107,7 @@ const Cart = () => {
                   <span className="uppercase">Total cost</span>
                   <span>Nrs. {getTotalCostWithShipping().toFixed(2)}</span>
                 </div>
-                <button className="btn btn-neutral font-semibold py-3 text-sm text-white uppercase w-full cursor-pointer">Checkout</button>
+                <button className="btn btn-neutral font-semibold py-3 text-sm text-white uppercase w-full cursor-pointer" onClick={handleCheckout}>Checkout</button>
               </div>
             </div>
           </div>
@@ -110,7 +115,7 @@ const Cart = () => {
       </main>
       <Footer />
     </>
-  )
+  );
 }
 
-export default Cart
+export default Cart;

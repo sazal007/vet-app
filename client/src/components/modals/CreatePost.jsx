@@ -82,7 +82,7 @@ const CreatePost = () => {
               <div className="label">
                 <span className="label-text">Upload Image</span>
               </div>
-              <input type="file" className="file-input file-input-bordered w-full mb-4" ref={file_ref} onChange={handleFileChange} />
+              <input type="file" multiple className="file-input file-input-bordered w-full mb-4" ref={file_ref} onChange={handleFileChange} />
             </div>
             <div className='flex justify-end'>
               <button type="submit" className="btn btn-success">Post</button>
